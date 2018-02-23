@@ -1,0 +1,9 @@
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\bin\Release\MangaSelenium.exe.config
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\bin\Release\MangaSelenium.exe
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\bin\Release\MangaSelenium.pdb
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\bin\Release\WebDriver.dll
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\bin\Release\WebDriver.xml
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\obj\Release\MangaSelenium.csprojResolveAssemblyReference.cache
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\obj\Release\MangaSelenium.csproj.CoreCompileInputs.cache
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\obj\Release\MangaSelenium.exe
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\obj\Release\MangaSelenium.pdb

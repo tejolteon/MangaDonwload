@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -13,9 +10,9 @@ using OpenQA.Selenium.Chrome;
 
 namespace MangaSelenium
 {
-    static class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             string unionMangas = "http://unionmangas.cc";
             string manga = "Ningyou no Kuni: APOSIMZ";
@@ -59,18 +56,18 @@ namespace MangaSelenium
 
                 for (int i = capUrl.Count - 1; i >= 0; i--)
                 {
-                    string path = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga+"\\"+capTitle[i]);
+                    string path = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga + "\\" + capTitle[i]);
 
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
 
                     OpenCap(driver, capUrl[i], nomeDoManga, path);
-                }       
+                    Console.WriteLine(capTitle[i] + " Baixado");
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                Console.Read();
+                throw e;
             }
             finally
             {
@@ -111,7 +108,7 @@ namespace MangaSelenium
             {
                 newPath = path + "\\" + (i + 1) + ".jpg";
                 DownloadFile(driver, imageUrl[i], newPath);
-            }     
+            } 
         }
     }
 }

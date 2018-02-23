@@ -1,0 +1,15 @@
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\bin\Debug\MangaSeleniumForm.exe.config
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\bin\Debug\MangaSeleniumForm.exe
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\bin\Debug\MangaSeleniumForm.pdb
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\bin\Debug\MangaSelenium.exe
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\bin\Debug\WebDriver.dll
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\bin\Debug\MangaSelenium.pdb
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\bin\Debug\MangaSelenium.exe.config
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\bin\Debug\WebDriver.xml
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.csprojResolveAssemblyReference.cache
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.Form1.resources
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.Properties.Resources.resources
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.csproj.GenerateResource.Cache
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.csproj.CoreCompileInputs.cache
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.exe
+C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.pdb
