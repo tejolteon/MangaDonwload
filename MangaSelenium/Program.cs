@@ -18,7 +18,7 @@ namespace MangaSelenium
         static void Main(string[] args)
         {
             string unionMangas = "http://unionmangas.cc";
-            string manga = "Fairy Tail Zero";
+            string manga = "Ningyou no Kuni: APOSIMZ";
             Inicio(unionMangas,manga);
         }
 
@@ -38,6 +38,13 @@ namespace MangaSelenium
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
                 nomeDoManga = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div[1]/div/h2")).Text;
+
+                string[] source = nomeDoManga.Split(new char[] { '.', '?', '!', ';', ':', ',', '"', '<', '>', '=', '-', '\n', '&' }, StringSplitOptions.RemoveEmptyEntries);
+
+                string firstElem = source.First();
+                string restOfArray = string.Join(" ", source.Skip(1));
+                nomeDoManga = firstElem + restOfArray;
+
                 var capitulos = driver.FindElements(By.XPath("//*[@class='row lancamento-linha']/div[1]/a"));
 
                 List<string> capUrl = new List<string>();
