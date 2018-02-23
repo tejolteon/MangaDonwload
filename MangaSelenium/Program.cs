@@ -18,7 +18,7 @@ namespace MangaSelenium
         static void Main(string[] args)
         {
             string unionMangas = "http://unionmangas.cc";
-            string manga = "Abara";
+            string manga = "Fairy Tail Zero";
             Inicio(unionMangas,manga);
         }
 
@@ -100,9 +100,9 @@ namespace MangaSelenium
 
             }
             string newPath;
-            for (int i = imageUrl.Count-1; i >= 0; i--)
+            for (int i = 0; i < imageUrl.Count; i++)
             {
-                newPath = path + "\\" + (imageUrl.Count - i) + ".jpg";
+                newPath = path + "\\" + (i + 1) + ".jpg";
                 DownloadFile(driver, imageUrl[i], newPath);
             }     
         }
