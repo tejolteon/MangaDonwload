@@ -19,6 +19,8 @@ namespace MangaSelenium
             Inicio(unionMangas,manga);
         }
 
+        public static string file = null;
+
         public static void Inicio(string url, string nomeDoManga)
         {
             IWebDriver driver = new ChromeDriver();
@@ -53,16 +55,20 @@ namespace MangaSelenium
                     capTitle.Add(item.Text);
                 }
 
+                string pathLog = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga);
 
                 for (int i = capUrl.Count - 1; i >= 0; i--)
                 {
                     string path = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga + "\\" + capTitle[i]);
+                    
 
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
-
+                    
                     OpenCap(driver, capUrl[i], nomeDoManga, path);
-                    Console.WriteLine(capTitle[i] + " Baixado");
+                    
+                    
+                    File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
                 }
             }
             catch (Exception e)
