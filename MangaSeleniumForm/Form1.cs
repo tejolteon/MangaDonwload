@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.IO;
 
 namespace MangaSeleniumForm
 {
@@ -15,7 +14,7 @@ namespace MangaSeleniumForm
         public static string mangaName;
         string unionMangas = "http://unionmangas.cc";
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             
             if (mangaName == string.Empty)
@@ -38,15 +37,6 @@ namespace MangaSeleniumForm
                     this.Opacity = 100;
                 }  
             }
-        }
-
-        public async void LogAsync()
-        {
-            string log = null;
-            if (log != manga.Program.file)
-                log = manga.Program.file;
-            dataGridView1.
-            
         }
     }
 }

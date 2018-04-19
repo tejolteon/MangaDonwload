@@ -28,3 +28,4 @@ C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSeleniumForm\obj\Debug\
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.csproj.CoreCompileInputs.cache
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.exe
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.pdb
+C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSeleniumForm\obj\Debug\MangaSeleniumForm.csproj.CopyComplete

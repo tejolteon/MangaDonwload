@@ -27,13 +27,16 @@ namespace MangaSelenium
             try
             {
                 driver.Navigate().GoToUrl(url);
+                Console.WriteLine("Navegando até " + url);
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
                 driver.FindElement(By.XPath("//*[@id=\"pesquisa\"]")).SendKeys(nomeDoManga);
                 driver.FindElement(By.XPath("//*[@id=\"pesquisa\"]")).Submit();
+                Console.WriteLine("Pesquisando Mangá " + nomeDoManga);
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
                 driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div[6]/div[1]/a[2]")).Click();
+                Console.WriteLine("Abrindo Mangá");
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
 
                 nomeDoManga = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div[1]/div/h2")).Text;
@@ -69,10 +72,13 @@ namespace MangaSelenium
                     
                     
                     File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
+                    Console.WriteLine(capTitle[i] + " Baixado");
                 }
+                Console.WriteLine("Fim da Execução");
             }
             catch (Exception e)
             {
+                Console.WriteLine("Erro: " + e.Message);
                 throw e;
             }
             finally

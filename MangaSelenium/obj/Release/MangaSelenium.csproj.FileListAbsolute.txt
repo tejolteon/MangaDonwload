@@ -16,3 +16,4 @@ C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Release\Ma
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Release\MangaSelenium.csproj.CoreCompileInputs.cache
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Release\MangaSelenium.exe
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Release\MangaSelenium.pdb
+C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Release\MangaSelenium.csproj.CopyComplete
