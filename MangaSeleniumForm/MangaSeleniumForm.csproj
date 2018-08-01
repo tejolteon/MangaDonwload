@@ -50,16 +50,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="DownloadMangaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="DownloadMangaForm.Designer.cs">
+      <DependentUpon>DownloadMangaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="DownloadMangaForm.resx">
+      <DependentUpon>DownloadMangaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -85,6 +85,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MangaSeleniumController\MangaSeleniumController.csproj">
+      <Project>{c1337f69-5d75-4a11-aa4c-edb4dd552389}</Project>
+      <Name>MangaSeleniumController</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MangaSelenium\MangaSelenium.csproj">
       <Project>{98612dd2-47f0-4445-acda-0afe3cd5bf81}</Project>
       <Name>MangaSelenium</Name>

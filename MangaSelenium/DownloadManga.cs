@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using HtmlAgilityPack;
 
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -10,18 +11,18 @@ using OpenQA.Selenium.Chrome;
 
 namespace MangaSelenium
 {
-    public static class Program
+    public static class DownloadManga
     {
         public static void Main(string[] args)
         {
-            string unionMangas = "http://unionmangas.cc";
-            string manga = "Ningyou no Kuni: APOSIMZ";
-            Inicio(unionMangas,manga);
+            string unionMangas = "http://unionmangas.site/manga/";
+            string manga = "Oroka na Tenshi wa Akuma to Odoru";
+            Inicio(unionMangas, manga);
         }
 
-        public static string file = null;
+        public static string file;
 
-        public static void Inicio(string url, string nomeDoManga)
+        public static void InicioSelenium(string url, string nomeDoManga)
         {
             IWebDriver driver = new ChromeDriver();
             try
@@ -63,18 +64,20 @@ namespace MangaSelenium
                 for (int i = capUrl.Count - 1; i >= 0; i--)
                 {
                     string path = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga + "\\" + capTitle[i]);
-                    
+
 
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
-                    
+
                     OpenCap(driver, capUrl[i], nomeDoManga, path);
-                    
-                    
+
+
                     File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
+                    file = capTitle[i] + " Baixado";
                     Console.WriteLine(capTitle[i] + " Baixado");
                 }
                 Console.WriteLine("Fim da Execução");
+                file = "Acabou";
             }
             catch (Exception e)
             {
@@ -85,6 +88,54 @@ namespace MangaSelenium
             {
                 driver.Dispose();
             }
+        }
+
+        public static void Inicio(string url, string nomeDoManga)
+        {
+            nomeDoManga = nomeDoManga.Replace(" ", "-").ToLower();
+            HtmlWeb get = new HtmlWeb();
+            HtmlDocument page = get.Load(url + nomeDoManga);
+            //var capitulos = driver.FindElements(By.XPath("//*[@class='row lancamento-linha']/div[1]/a"));
+
+            nomeDoManga = page.DocumentNode.SelectSingleNode("/html/body/div[1]/div/div[1]/div[1]/div/h2").InnerText;
+
+            string[] source = nomeDoManga.Split(new char[] { '.', '?', '!', ';', ':', ',', '"', '<', '>', '=', '-', '\n', '&' }, StringSplitOptions.RemoveEmptyEntries);
+
+            string firstElem = source.First();
+            string restOfArray = string.Join(" ", source.Skip(1));
+            nomeDoManga = firstElem + restOfArray;
+
+            var chapters = page.DocumentNode.SelectNodes("//*[@class='row lancamento-linha']/div[1]/a");
+
+            List<string> capUrl = new List<string>();
+            List<string> capTitle = new List<string>();
+
+            foreach (var item in chapters)
+            {
+                capUrl.Add(item.Attributes["href"].Value);
+                capTitle.Add(item.InnerText);
+            }
+
+            string pathLog = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga);
+
+            for (int i = capUrl.Count - 1; i >= 0; i--)
+            {
+                string path = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga + "\\" + capTitle[i]);
+
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                OpenCap(capUrl[i], nomeDoManga, path);
+
+
+                File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
+                file = capTitle[i] + " Baixado";
+                Console.WriteLine(capTitle[i] + " Baixado");
+            }
+            Console.WriteLine("Fim da Execução");
+            file = "Acabou";
+
         }
 
         static string GetCookieHeaderString(IWebDriver driver)
@@ -98,6 +149,14 @@ namespace MangaSelenium
             using (WebClient wc = new WebClient())
             {
                 wc.Headers[HttpRequestHeader.Cookie] = GetCookieHeaderString(driver);
+                wc.DownloadFile(sourceURL, destinationPathAndName);
+            }
+        }
+
+        public static void DownloadFile(string sourceURL, string destinationPathAndName)
+        {
+            using (WebClient wc = new WebClient())
+            {
                 wc.DownloadFile(sourceURL, destinationPathAndName);
             }
         }
@@ -120,7 +179,28 @@ namespace MangaSelenium
             {
                 newPath = path + "\\" + (i + 1) + ".jpg";
                 DownloadFile(driver, imageUrl[i], newPath);
-            } 
+            }
+        }
+
+        public static void OpenCap(string capUrl, string nomeDoManga, string path)
+        {
+            var get = new HtmlWeb();
+            var page = get.Load(capUrl);
+
+            var images = page.DocumentNode.SelectNodes("//*[@id=\"leitor\"]/div[4]/div[4]/img");
+            List<string> imageUrl = new List<string>();
+
+            foreach (var item in images)
+            {
+                imageUrl.Add(item.Attributes["src"].Value);
+
+            }
+            string newPath;
+            for (int i = 0; i < imageUrl.Count; i++)
+            {
+                newPath = path + "\\" + (i + 1) + ".jpg";
+                DownloadFile(imageUrl[i], newPath);
+            }
         }
     }
 }

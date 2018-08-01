@@ -1,6 +1,6 @@
 ﻿namespace MangaSeleniumForm
 {
-    partial class Form1
+    partial class DownloadMangaForm
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DownloadMangaForm));
             this.txtMangaName = new System.Windows.Forms.TextBox();
             this.btnConfirm = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -36,6 +36,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.lsvLog = new System.Windows.Forms.ListView();
+            this.id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.log = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // txtMangaName
@@ -108,11 +111,32 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "Os mangás baixados ficam na pasta do aplicativo\\data\\nomedomangá.";
             // 
-            // Form1
+            // lsvLog
+            // 
+            this.lsvLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.id,
+            this.log});
+            this.lsvLog.Location = new System.Drawing.Point(81, 226);
+            this.lsvLog.Name = "lsvLog";
+            this.lsvLog.Size = new System.Drawing.Size(294, 97);
+            this.lsvLog.TabIndex = 7;
+            this.lsvLog.UseCompatibleStateImageBehavior = false;
+            this.lsvLog.View = System.Windows.Forms.View.Details;
+            // 
+            // id
+            // 
+            this.id.Text = "ID";
+            // 
+            // log
+            // 
+            this.log.Text = "Log";
+            // 
+            // DownloadMangaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(493, 224);
+            this.ClientSize = new System.Drawing.Size(657, 398);
+            this.Controls.Add(this.lsvLog);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -121,7 +145,7 @@
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.txtMangaName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "DownloadMangaForm";
             this.Text = "Baixar Mangá";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -137,6 +161,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ListView lsvLog;
+        private System.Windows.Forms.ColumnHeader id;
+        private System.Windows.Forms.ColumnHeader log;
     }
 }
 

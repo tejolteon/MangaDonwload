@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaSelenium", "MangaSelen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaSeleniumForm", "MangaSeleniumForm\MangaSeleniumForm.csproj", "{FBF019F7-2124-48D8-9406-31DB3BE94294}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaSeleniumController", "MangaSeleniumController\MangaSeleniumController.csproj", "{C1337F69-5D75-4A11-AA4C-EDB4DD552389}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FBF019F7-2124-48D8-9406-31DB3BE94294}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBF019F7-2124-48D8-9406-31DB3BE94294}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBF019F7-2124-48D8-9406-31DB3BE94294}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1337F69-5D75-4A11-AA4C-EDB4DD552389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1337F69-5D75-4A11-AA4C-EDB4DD552389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1337F69-5D75-4A11-AA4C-EDB4DD552389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1337F69-5D75-4A11-AA4C-EDB4DD552389}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

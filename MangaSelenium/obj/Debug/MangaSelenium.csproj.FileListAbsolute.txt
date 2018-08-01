@@ -3,7 +3,6 @@ C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\bin\Debug\Mang
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\bin\Debug\MangaSelenium.pdb
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\bin\Debug\WebDriver.dll
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\bin\Debug\WebDriver.xml
-C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Debug\MangaSelenium.csprojResolveAssemblyReference.cache
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Debug\MangaSelenium.csproj.CoreCompileInputs.cache
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Debug\MangaSelenium.exe
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Debug\MangaSelenium.pdb
@@ -17,3 +16,7 @@ C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\obj\Debug\MangaSelen
 C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\obj\Debug\MangaSelenium.exe
 C:\Users\tiago\Documents\GitHub\MangaSelenium\MangaSelenium\obj\Debug\MangaSelenium.pdb
 C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Debug\MangaSelenium.csproj.CopyComplete
+C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\obj\Debug\MangaSelenium.csprojAssemblyReference.cache
+C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\bin\Debug\HtmlAgilityPack.dll
+C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\dev.tiago\Documents\Projects\MangaSelenium\MangaSelenium\bin\Debug\HtmlAgilityPack.xml
