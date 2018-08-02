@@ -1,0 +1,11 @@
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\bin\Release\MangaDownload.dll
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\bin\Release\MangaDownload.pdb
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\bin\Release\HtmlAgilityPack.dll
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\bin\Release\WebDriver.dll
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\bin\Release\HtmlAgilityPack.pdb
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\bin\Release\HtmlAgilityPack.xml
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\bin\Release\WebDriver.xml
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\obj\Release\MangaDownload.csproj.CoreCompileInputs.cache
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\obj\Release\MangaDownload.csproj.CopyComplete
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\obj\Release\MangaDownload.dll
+C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\obj\Release\MangaDownload.pdb
