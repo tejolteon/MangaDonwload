@@ -39,6 +39,9 @@
             this.lsvLog = new System.Windows.Forms.ListView();
             this.id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.log = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.rdbSim = new System.Windows.Forms.RadioButton();
+            this.rdbNao = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtMangaName
@@ -84,7 +87,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(14, 114);
+            this.label3.Location = new System.Drawing.Point(14, 140);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 19);
             this.label3.TabIndex = 4;
@@ -94,7 +97,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(14, 133);
+            this.label4.Location = new System.Drawing.Point(14, 159);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(472, 38);
             this.label4.TabIndex = 5;
@@ -105,7 +108,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(16, 171);
+            this.label5.Location = new System.Drawing.Point(16, 197);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(453, 19);
             this.label5.TabIndex = 6;
@@ -116,9 +119,9 @@
             this.lsvLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.id,
             this.log});
-            this.lsvLog.Location = new System.Drawing.Point(81, 226);
+            this.lsvLog.Location = new System.Drawing.Point(16, 276);
             this.lsvLog.Name = "lsvLog";
-            this.lsvLog.Size = new System.Drawing.Size(294, 97);
+            this.lsvLog.Size = new System.Drawing.Size(453, 139);
             this.lsvLog.TabIndex = 7;
             this.lsvLog.UseCompatibleStateImageBehavior = false;
             this.lsvLog.View = System.Windows.Forms.View.Details;
@@ -130,12 +133,47 @@
             // log
             // 
             this.log.Text = "Log";
+            this.log.Width = 380;
+            // 
+            // rdbSim
+            // 
+            this.rdbSim.AutoSize = true;
+            this.rdbSim.Location = new System.Drawing.Point(46, 120);
+            this.rdbSim.Name = "rdbSim";
+            this.rdbSim.Size = new System.Drawing.Size(42, 17);
+            this.rdbSim.TabIndex = 8;
+            this.rdbSim.Text = "Sim";
+            this.rdbSim.UseVisualStyleBackColor = true;
+            // 
+            // rdbNao
+            // 
+            this.rdbNao.AutoSize = true;
+            this.rdbNao.Checked = true;
+            this.rdbNao.Location = new System.Drawing.Point(103, 120);
+            this.rdbNao.Name = "rdbNao";
+            this.rdbNao.Size = new System.Drawing.Size(45, 17);
+            this.rdbNao.TabIndex = 9;
+            this.rdbNao.TabStop = true;
+            this.rdbNao.Text = "Não";
+            this.rdbNao.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(20, 101);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(91, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Usar Navegador?";
             // 
             // DownloadMangaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(657, 398);
+            this.ClientSize = new System.Drawing.Size(499, 447);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.rdbNao);
+            this.Controls.Add(this.rdbSim);
             this.Controls.Add(this.lsvLog);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -164,6 +202,9 @@
         private System.Windows.Forms.ListView lsvLog;
         private System.Windows.Forms.ColumnHeader id;
         private System.Windows.Forms.ColumnHeader log;
+        private System.Windows.Forms.RadioButton rdbSim;
+        private System.Windows.Forms.RadioButton rdbNao;
+        private System.Windows.Forms.Label label6;
     }
 }
 

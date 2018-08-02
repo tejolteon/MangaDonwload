@@ -2,11 +2,11 @@
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace MangaSeleniumForm
 {
-    using Manga = MangaSelenium.DownloadManga;
-    using Controler = MangaSeleniumController.Controller;
+    using Controller = MangaSeleniumController.Controller;
 
     public partial class DownloadMangaForm : Form
     {
@@ -15,58 +15,104 @@ namespace MangaSeleniumForm
             InitializeComponent();
         }
 
+        delegate void SetTextCallback(ListViewItem item);
+        delegate void SetBoolCallback(bool en);
         public static string mangaName;
-        string unionMangas = "http://unionmangas.cc";
+        string unionMangas = "http://unionmangas.site";
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            
+
             if (string.IsNullOrEmpty(txtMangaName.Text))
                 MessageBox.Show("Por favor, digite o nome do Mangá desejado");
             else
             {
                 mangaName = txtMangaName.Text;
-                //Opacity = 0;
+
                 try
                 {
-                    //Manga.Inicio(unionMangas, mangaName);
-                    //new Task(WriteLog).Start();
-                    Controler.Download(unionMangas, mangaName);
-                    
-                    MessageBox.Show("Concluido", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (rdbNao.Checked)
+                        new Task(() => { Controller.Download(unionMangas + "/manga/", mangaName, false); }).Start();
+                    else if (rdbSim.Checked)
+                        new Task(() => { Controller.Download(unionMangas, mangaName, true); }).Start();
+                    else
+                        throw new Exception("Selecione um opção");
+
+                    new Task(WriteLog).Start();
+                    btnConfirm.Enabled = false;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("ERROR: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-            
         }
 
         void WriteLog()
         {
             int id = 0;
             List<string> l = new List<string>();
+
             while (true)
             {
-                var Logs = Controler.ReadLogs();
+                var Logs = Controller.logs;
 
-                foreach (var log in Logs)
+                if (Logs.Count > 0)
                 {
-                    if (!l.Contains(log))
+                    foreach (var log in Logs)
                     {
-                        id++;
-                        string[] str = new string[] { id.ToString(), log };
-                        ListViewItem item = new ListViewItem(str);
-                        lsvLog.Items.Add(item);
-                        l.Add(log);
-                        break;
+                        if (!l.Contains(log))
+                        {
+                            id++;
+                            string[] str = new string[] { id.ToString(), log };
+                            ListViewItem item = new ListViewItem(str);
+                            ListAdd(item);
+                            l.Add(log);
+                        }
                     }
+
+                    if (l.Contains("Fim da Execução"))
+                        break;
+                    Thread.Sleep(2000);
                 }
-                if (l.Count == Logs.Count)
-                    break;
             }
+            ButtonEnable(true);
+        }
+
+        private void ListAdd(ListViewItem item)
+        {
+            if (lsvLog.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(ItemToAdd);
+                Invoke(d, new object[] { item });
+            }
+            else
+            {
+                lsvLog.Items.Insert(0, item);
+            }
+        }
+
+        private void ItemToAdd(ListViewItem item)
+        {
+            lsvLog.Items.Insert(0, item);
+        }
+
+        private void ButtonEnable(bool en)
+        {
+            if (lsvLog.InvokeRequired)
+            {
+                SetBoolCallback e = new SetBoolCallback(ButtonStatus);
+                Invoke(e, new object[] { en });
+            }
+            else
+            {
+                btnConfirm.Enabled = en;
+            }
+        }
+
+        private void ButtonStatus(bool en)
+        {
+            btnConfirm.Enabled = en;
         }
     }
 }

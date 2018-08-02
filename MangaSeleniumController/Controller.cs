@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MangaSeleniumController
@@ -12,7 +9,9 @@ namespace MangaSeleniumController
         static void Main(string[] args)
         {
         }
+
         public static List<string> logs = new List<string>();
+
         public static void GetLog()
         {
             string l = "Começou";
@@ -20,27 +19,26 @@ namespace MangaSeleniumController
 
             while (true)
             {
-                if (l != Manga.file)
+                if (l != Manga.file && Manga.file != null)
+                {
                     l = Manga.file;
-
-                if (l != null)
                     logs.Add(l);
+                }
 
-                if (l == "Acabou")
+                if (l == "Fim da Execução")
                     break;
             }
 
         }
 
-        public static void Download(string x, string y)
+        public static void Download(string x, string y, bool n)
         {
-            new Task(() => { Manga.Inicio(x, y); }).Start();
-            new Task(GetLog).Start();
-        }
+            if (n)
+                new Task(() => { Manga.ViaSelenium(x, y); }).Start();
+            else
+                new Task(() => { Manga.ViaCrawler(x, y); }).Start();
 
-        public static List<string> ReadLogs()
-        {
-            return logs;
+            new Task(GetLog).Start();
         }
     }
 }
