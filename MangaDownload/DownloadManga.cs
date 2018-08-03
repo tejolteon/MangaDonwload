@@ -15,14 +15,14 @@ namespace MangaDownload
     {
         public static void Main(string[] args)
         {
-            string unionMangas = "http://unionmangas.site/manga/";
-            string manga = "Oroka na Tenshi wa Akuma to Odoru";
-            ViaSelenium(unionMangas, manga);
+            //string unionMangas = "http://unionmangas.site/manga/";
+            //string manga = "Oroka na Tenshi wa Akuma to Odoru";
+            //ViaSelenium(unionMangas, manga);
         }
 
         public static string file;
 
-        public static void ViaSelenium(string url, string nomeDoManga)
+        public static void ViaSelenium(string url, string nomeDoManga, int capitulo)
         {
             IWebDriver driver = new ChromeDriver();
             try
@@ -61,7 +61,7 @@ namespace MangaDownload
 
                 string pathLog = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga);
 
-                for (int i = capUrl.Count - 1; i >= 0; i--)
+                for (int i = capUrl.Count - capitulo; i >= 0; i--)
                 {
                     string path = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga + "\\" + capTitle[i]);
 
@@ -90,49 +90,56 @@ namespace MangaDownload
             }
         }
 
-        public static void ViaCrawler(string url, string nomeDoManga)
+        public static void ViaCrawler(string url, string nomeDoManga, int capitulo)
         {
-            nomeDoManga = nomeDoManga.Replace(" ", "-").ToLower();
-            HtmlWeb get = new HtmlWeb();
-            HtmlDocument page = get.Load(url + nomeDoManga);
-
-            nomeDoManga = page.DocumentNode.SelectSingleNode("/html/body/div[1]/div/div[1]/div[1]/div/h2").InnerText;
-
-            string[] source = nomeDoManga.Split(new char[] { '.', '?', '!', ';', ':', ',', '"', '<', '>', '=', '-', '\n', '&' }, StringSplitOptions.RemoveEmptyEntries);
-
-            string firstElem = source.First();
-            string restOfArray = string.Join(" ", source.Skip(1));
-            nomeDoManga = firstElem + restOfArray;
-
-            var chapters = page.DocumentNode.SelectNodes("//*[@class='row lancamento-linha']/div[1]/a");
-
-            List<string> capUrl = new List<string>();
-            List<string> capTitle = new List<string>();
-
-            foreach (var item in chapters)
+            try
             {
-                capUrl.Add(item.Attributes["href"].Value);
-                capTitle.Add(item.InnerText);
+                nomeDoManga = nomeDoManga.Replace(" ", "-").ToLower();
+                HtmlWeb get = new HtmlWeb();
+                HtmlDocument page = get.Load(url + nomeDoManga);
+
+                nomeDoManga = page.DocumentNode.SelectSingleNode("/html/body/div[1]/div/div[1]/div[1]/div/h2").InnerText;
+
+                string[] source = nomeDoManga.Split(new char[] { '.', '?', '!', ';', ':', ',', '"', '<', '>', '=', '-', '\n', '&' }, StringSplitOptions.RemoveEmptyEntries);
+
+                string firstElem = source.First();
+                string restOfArray = string.Join(" ", source.Skip(1));
+                nomeDoManga = firstElem + restOfArray;
+
+                var chapters = page.DocumentNode.SelectNodes("//*[@class='row lancamento-linha']/div[1]/a");
+
+                List<string> capUrl = new List<string>();
+                List<string> capTitle = new List<string>();
+
+                foreach (var item in chapters)
+                {
+                    capUrl.Add(item.Attributes["href"].Value);
+                    capTitle.Add(item.InnerText);
+                }
+
+                string pathLog = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga);
+
+                for (int i = capUrl.Count - capitulo; i >= 0; i--)
+                {
+                    string path = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga + "\\" + capTitle[i]);
+
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    file = capTitle[i] + " - Iniciando Download";
+
+                    OpenCap(capUrl[i], nomeDoManga, path);
+
+                    File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
+                    file = capTitle[i] + " - Download Terminado";
+                }
+
+                file = "Fim da Execução";
             }
-
-            string pathLog = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga);
-
-            for (int i = capUrl.Count - 1; i >= 0; i--)
+            catch(Exception e)
             {
-                string path = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga + "\\" + capTitle[i]);
-
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-
-                file = capTitle[i] + " - Iniciando Download";
-
-                OpenCap(capUrl[i], nomeDoManga, path);
-
-                File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
-                file = capTitle[i] + " - Download Terminado";
+                throw e;
             }
-
-            file = "Fim da Execução";
         }
 
         static string GetCookieHeaderString(IWebDriver driver)

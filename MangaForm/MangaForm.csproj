@@ -7,7 +7,7 @@
     <ProjectGuid>{FBF019F7-2124-48D8-9406-31DB3BE94294}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>MangaForm</RootNamespace>
-    <AssemblyName>MangaForm</AssemblyName>
+    <AssemblyName>MangaDownload</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,7 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Ico.ico</ApplicationIcon>
+    <ApplicationIcon>MangaDownload.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -104,7 +104,12 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Ico.ico" />
+    <Content Include="MangaDownload.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="leiame.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

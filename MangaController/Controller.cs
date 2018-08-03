@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MangaController
@@ -25,16 +26,24 @@ namespace MangaController
                     break;
             }
 
+            Manga.file = string.Empty;
         }
 
-        public static void Download(string x, string y, bool n)
+        public static void Download(string x, string y, bool n, int c)
         {
-            if (n)
-                new Task(() => { Manga.ViaSelenium(x, y); }).Start();
-            else
-                new Task(() => { Manga.ViaCrawler(x, y); }).Start();
+            try
+            {
+                if (n)
+                    new Task(() => { Manga.ViaSelenium(x, y, c); }).Start();
+                else
+                    new Task(() => { Manga.ViaCrawler(x, y, c); }).Start();
 
-            new Task(GetLog).Start();
+                new Task(GetLog).Start();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

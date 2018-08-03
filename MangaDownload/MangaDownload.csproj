@@ -7,7 +7,7 @@
     <ProjectGuid>{98612DD2-47F0-4445-ACDA-0AFE3CD5BF81}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>MangaDownload</RootNamespace>
-    <AssemblyName>MangaDownload</AssemblyName>
+    <AssemblyName>Download</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
