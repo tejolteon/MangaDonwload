@@ -183,7 +183,7 @@ namespace MangaDownload
 
             for (int i = 0; i < imageUrl.Count; i++)
             {
-                newPath = path + "\\" + (i + 1) + ".jpg";
+                newPath = path + "\\" + (i + 1).ToString("00") + ".jpg";
                 DownloadFile(driver, imageUrl[i], newPath);
             }
         }
@@ -206,7 +206,7 @@ namespace MangaDownload
 
             for (int i = 0; i < imageUrl.Count; i++)
             {
-                newPath = path + "\\" + (i + 1) + ".jpg";
+                newPath = path + "\\" + (i + 1).ToString("00") + ".jpg";
                 DownloadFile(imageUrl[i], newPath);
             }
         }

@@ -2,12 +2,13 @@
 
 Baixe seus mangás de forma automática
 
-Version 0.9
+Version 0.9.1
 
 Uptades:
 	- Bugs fixes
 	- Agora é possível escolher a partir de qual capítulo você quer baixar (finalmente)
 	- Botão de Limpar log (xD)
+	- Páginas com o número abaixo de dez agora virão com um zero à esquerda (alguns sistemas não reconhecem normalmente)
 
 Informações básicas:
 	Para baixar um mangá usando o navegador, apenas digite o nome do mangá como se fosse a barra de pesquisa, a partir daí o programa irá procurar seu mangá e baixar os capítulos.
