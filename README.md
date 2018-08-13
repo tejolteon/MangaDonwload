@@ -4,7 +4,7 @@ Manga Download
 Baixe seus mangás de forma automática
 
 
-Version 0.9
+Version 0.9.1
 
 
 Uptades:
@@ -14,6 +14,8 @@ Uptades:
 	- Agora é possível escolher a partir de qual capítulo você quer baixar (finalmente)
   
 	- Botão de Limpar log (xD)
+	
+	- Páginas com o número abaixo de dez agora virão com um zero à esquerda (alguns sistemas não reconhecem normalmente)
 
 
 Informações básicas:
