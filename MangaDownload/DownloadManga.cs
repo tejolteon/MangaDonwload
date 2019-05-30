@@ -4,51 +4,40 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using HtmlAgilityPack;
-
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-
+using static System.Awaiter;
 
 namespace MangaDownload
 {
     public static class DownloadManga
     {
-        public static void Main(string[] args)
-        {
-            //string unionMangas = "http://unionmangas.site/manga/";
-            //string manga = "Oroka na Tenshi wa Akuma to Odoru";
-            //ViaSelenium(unionMangas, manga);
-        }
-
         public static string file;
 
         public static void ViaSelenium(string url, string nomeDoManga, int capitulo)
         {
-            IWebDriver driver = new ChromeDriver();
+            WebDriver driver = new WebDriver();
+
             try
             {
-                driver.Navigate().GoToUrl(url);
+                driver.Url = url;
                 Console.WriteLine("Navegando até " + url);
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                DelaySeconds(1);
 
-                driver.FindElement(By.XPath("//*[@id=\"pesquisa\"]")).SendKeys(nomeDoManga);
-                driver.FindElement(By.XPath("//*[@id=\"pesquisa\"]")).Submit();
+                var searchBox = driver.WaitElement(By.XPath("//*[@id=\"pesquisa\"]"));
+                searchBox.SendKeys(nomeDoManga);
+                searchBox.Submit();
                 Console.WriteLine("Pesquisando Mangá " + nomeDoManga);
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                DelaySeconds(1);
 
-                driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div[6]/div[1]/a[2]")).Click();
+                driver.WaitElement(By.XPath("/html/body/div[1]/div/div[1]/div[6]/div[1]/a[2]")).Click();
                 Console.WriteLine("Abrindo Mangá");
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                DelaySeconds(1);
 
-                nomeDoManga = driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div[1]/div/h2")).Text;
+                nomeDoManga = driver.WaitElement(By.XPath("/html/body/div[1]/div/div[1]/div[1]/div/h2")).Text;
 
-                string[] source = nomeDoManga.Split(new char[] { '.', '?', '!', ';', ':', ',', '"', '<', '>', '=', '-', '\n', '&' }, StringSplitOptions.RemoveEmptyEntries);
+                nomeDoManga = nomeDoManga.NormalizeText();
 
-                string firstElem = source.First();
-                string restOfArray = string.Join(" ", source.Skip(1));
-                nomeDoManga = firstElem + restOfArray;
-
-                var capitulos = driver.FindElements(By.XPath("//*[@class='row lancamento-linha']/div[1]/a"));
+                var capitulos = driver.WaitElements(By.XPath("//*[@class='row lancamento-linha']/div[1]/a"));
 
                 List<string> capUrl = new List<string>();
                 List<string> capTitle = new List<string>();
@@ -70,7 +59,7 @@ namespace MangaDownload
 
                     file = capTitle[i] + " - Iniciando Download";
 
-                    OpenCap(driver, capUrl[i], nomeDoManga, path);
+                    OpenCap(driver, capUrl[i], path);
 
                     File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
                     file = capTitle[i] + " - Download Terminado";
@@ -100,11 +89,7 @@ namespace MangaDownload
 
                 nomeDoManga = page.DocumentNode.SelectSingleNode("/html/body/div[1]/div/div[1]/div[1]/div/h2").InnerText;
 
-                string[] source = nomeDoManga.Split(new char[] { '.', '?', '!', ';', ':', ',', '"', '<', '>', '=', '-', '\n', '&' }, StringSplitOptions.RemoveEmptyEntries);
-
-                string firstElem = source.First();
-                string restOfArray = string.Join(" ", source.Skip(1));
-                nomeDoManga = firstElem + restOfArray;
+                nomeDoManga = nomeDoManga.NormalizeText();
 
                 var chapters = page.DocumentNode.SelectNodes("//*[@class='row lancamento-linha']/div[1]/a");
 
@@ -128,7 +113,7 @@ namespace MangaDownload
 
                     file = capTitle[i] + " - Iniciando Download";
 
-                    OpenCap(capUrl[i], nomeDoManga, path);
+                    OpenCap(capUrl[i], path);
 
                     File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
                     file = capTitle[i] + " - Download Terminado";
@@ -142,13 +127,13 @@ namespace MangaDownload
             }
         }
 
-        static string GetCookieHeaderString(IWebDriver driver)
+        static string GetCookieHeaderString(WebDriver driver)
         {
             var cookies = driver.Manage().Cookies.AllCookies;
             return string.Join("; ", cookies.Select(c => string.Format("{0}={1}", c.Name, c.Value)));
         }
 
-        public static void DownloadFile(this IWebDriver driver, string sourceURL, string destinationPathAndName)
+        private static void DownloadFile(this WebDriver driver, string sourceURL, string destinationPathAndName)
         {
             using (WebClient wc = new WebClient())
             {
@@ -165,12 +150,12 @@ namespace MangaDownload
             }
         }
 
-        public static void OpenCap(this IWebDriver driver, string capUrl, string nomeDoManga, string path)
+        private static void OpenCap(this WebDriver driver, string capUrl, string path)
         {
-            driver.Navigate().GoToUrl(capUrl);
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driver.Url = capUrl;
+            DelaySeconds(1);
 
-            var images = driver.FindElements(By.XPath("//*[@id=\"leitor\"]/div[4]/div[4]/img"));
+            var images = driver.WaitElements(By.XPath("//*[@id=\"leitor\"]/div[4]/div[4]/img"));
             List<string> imageUrl = new List<string>();
 
             foreach (var item in images)
@@ -188,7 +173,7 @@ namespace MangaDownload
             }
         }
 
-        public static void OpenCap(string capUrl, string nomeDoManga, string path)
+        public static void OpenCap(string capUrl, string path)
         {
             var get = new HtmlWeb();
             var page = get.Load(capUrl);

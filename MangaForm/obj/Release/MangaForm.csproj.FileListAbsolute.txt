@@ -20,3 +20,5 @@ C:\Users\dev.tiago\Documents\MangaDonwload\MangaForm\obj\Release\MangaForm.cspro
 C:\Users\dev.tiago\Documents\MangaDonwload\MangaForm\obj\Release\MangaForm.csproj.CopyComplete
 C:\Users\dev.tiago\Documents\MangaDonwload\MangaForm\obj\Release\MangaDownload.exe
 C:\Users\dev.tiago\Documents\MangaDonwload\MangaForm\obj\Release\MangaDownload.pdb
+C:\Users\tiago\source\repos\MangaDownload\MangaForm\obj\Release\MangaDownload.exe
+C:\Users\tiago\source\repos\MangaDownload\MangaForm\obj\Release\MangaDownload.pdb

@@ -9,3 +9,5 @@ C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\obj\Release\MangaDownlo
 C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\obj\Release\MangaDownload.csproj.CopyComplete
 C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\obj\Release\Download.dll
 C:\Users\dev.tiago\Documents\MangaDonwload\MangaDownload\obj\Release\Download.pdb
+C:\Users\tiago\source\repos\MangaDownload\MangaDownload\obj\Release\Download.dll
+C:\Users\tiago\source\repos\MangaDownload\MangaDownload\obj\Release\Download.pdb

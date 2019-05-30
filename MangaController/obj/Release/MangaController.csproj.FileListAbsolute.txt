@@ -12,3 +12,5 @@ C:\Users\dev.tiago\Documents\MangaDonwload\MangaController\obj\Release\MangaCont
 C:\Users\dev.tiago\Documents\MangaDonwload\MangaController\obj\Release\MangaController.csproj.CopyComplete
 C:\Users\dev.tiago\Documents\MangaDonwload\MangaController\obj\Release\Manga.dll
 C:\Users\dev.tiago\Documents\MangaDonwload\MangaController\obj\Release\Manga.pdb
+C:\Users\tiago\source\repos\MangaDownload\MangaController\obj\Release\Manga.dll
+C:\Users\tiago\source\repos\MangaDownload\MangaController\obj\Release\Manga.pdb
