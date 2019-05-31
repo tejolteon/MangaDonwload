@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 namespace MangaController
 {
     using Manga = MangaDownload.DownloadManga;
+
     public class Controller
     {
         public static List<string> logs = new List<string>();
 
         public static void GetLog()
         {
-            string l = "Começou";
+            string l = "Processo Iniciado";
             logs.Add(l);
 
             while (true)
@@ -29,14 +30,14 @@ namespace MangaController
             Manga.file = string.Empty;
         }
 
-        public static void Download(string x, string y, bool n, int c)
+        public static void Download(string url, string manga, bool navegador, int capitulo)
         {
             try
             {
-                if (n)
-                    new Task(() => { Manga.ViaSelenium(x, y, c); }).Start();
+                if (navegador)
+                    new Task(() => { Manga.ViaSelenium(url, manga, capitulo); }).Start();
                 else
-                    new Task(() => { Manga.ViaCrawler(x, y, c); }).Start();
+                    new Task(() => { Manga.ViaCrawler(url, manga, capitulo); }).Start();
 
                 new Task(GetLog).Start();
             }

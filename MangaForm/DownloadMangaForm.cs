@@ -18,11 +18,12 @@ namespace MangaForm
         delegate void SetTextCallback(ListViewItem item);
         delegate void SetBoolCallback(bool en);
         public static string mangaName;
-        string unionMangas = "http://unionmangas.site";
+        readonly string unionMangas = "http://unionmangas.site";
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
             int cap = 1;
+
             if (string.IsNullOrEmpty(txtMangaName.Text))
                 MessageBox.Show("Por favor, digite o nome do Mangá desejado");
             else
@@ -87,6 +88,7 @@ namespace MangaForm
                     Thread.Sleep(2000);
                 }
             }
+
             Controller.logs.Clear();
             ButtonEnable(true);
         }
@@ -130,8 +132,12 @@ namespace MangaForm
             cbkCap.Enabled = en;
             btnLimpar.Enabled = en;
             btnConfirm.Enabled = en;
-            txtCap.Enabled = en;
             txtMangaName.Enabled = en;
+
+            if (cbkCap.Checked)
+                txtCap.Enabled = true;
+            else
+                txtCap.Enabled = false;
         }
 
         private void BtnLimpar_Click(object sender, EventArgs e)

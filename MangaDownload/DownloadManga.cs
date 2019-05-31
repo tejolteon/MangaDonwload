@@ -15,23 +15,18 @@ namespace MangaDownload
 
         public static void ViaSelenium(string url, string nomeDoManga, int capitulo)
         {
-            WebDriver driver = new WebDriver();
-
+            string[] opt = { "headless" };
+            WebDriver driver = new WebDriver(opt);
+            nomeDoManga = nomeDoManga.NormalizeFirstText();
             try
             {
                 driver.Url = url;
-                Console.WriteLine("Navegando até " + url);
-                DelaySeconds(1);
 
                 var searchBox = driver.WaitElement(By.XPath("//*[@id=\"pesquisa\"]"));
                 searchBox.SendKeys(nomeDoManga);
                 searchBox.Submit();
-                Console.WriteLine("Pesquisando Mangá " + nomeDoManga);
-                DelaySeconds(1);
 
                 driver.WaitElement(By.XPath("/html/body/div[1]/div/div[1]/div[6]/div[1]/a[2]")).Click();
-                Console.WriteLine("Abrindo Mangá");
-                DelaySeconds(1);
 
                 nomeDoManga = driver.WaitElement(By.XPath("/html/body/div[1]/div/div[1]/div[1]/div/h2")).Text;
 
@@ -63,10 +58,8 @@ namespace MangaDownload
 
                     File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
                     file = capTitle[i] + " - Download Terminado";
-                    Console.WriteLine(capTitle[i] + " Baixado");
                 }
 
-                Console.WriteLine("Fim da Execução");
                 file = "Fim da Execução";
             }
             catch (Exception e)
@@ -83,6 +76,7 @@ namespace MangaDownload
         {
             try
             {
+                nomeDoManga = nomeDoManga.RemoveSpecialChar();
                 nomeDoManga = nomeDoManga.Replace(" ", "-").ToLower();
                 HtmlWeb get = new HtmlWeb();
                 HtmlDocument page = get.Load(url + nomeDoManga);
@@ -153,7 +147,6 @@ namespace MangaDownload
         private static void OpenCap(this WebDriver driver, string capUrl, string path)
         {
             driver.Url = capUrl;
-            DelaySeconds(1);
 
             var images = driver.WaitElements(By.XPath("//*[@id=\"leitor\"]/div[4]/div[4]/img"));
             List<string> imageUrl = new List<string>();

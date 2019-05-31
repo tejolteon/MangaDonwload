@@ -141,9 +141,9 @@
             this.label6.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(16, 110);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(120, 19);
+            this.label6.Size = new System.Drawing.Size(99, 19);
             this.label6.TabIndex = 10;
-            this.label6.Text = "Usar Navegador?";
+            this.label6.Text = "Usar Chrome?";
             // 
             // btnLimpar
             // 
