@@ -6,7 +6,9 @@ using System.Threading;
 
 namespace MangaForm
 {
-    using Controller = MangaController.Controller;
+    using MangaDownloadController = MangaController.Controller;
+    using Controller;
+    using Entities;
 
     public partial class DownloadMangaForm : Form
     {
@@ -17,44 +19,39 @@ namespace MangaForm
 
         delegate void SetTextCallback(ListViewItem item);
         delegate void SetBoolCallback(bool en);
-        public static string mangaName;
         readonly string unionMangas = "http://unionmangas.site";
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            int cap = 1;
-
             if (string.IsNullOrEmpty(txtMangaName.Text))
                 MessageBox.Show("Por favor, digite o nome do Mangá desejado");
             else
             {
-                mangaName = txtMangaName.Text;
+                SettingsController settingsController = new SettingsController();
 
-                if (cbkCap.Checked)
-                    cap = int.Parse(txtCap.Text);
+                SettingsEntity settings = settingsController.Get();
+                string mangaName = txtMangaName.Text;
 
                 try
                 {
-                    if (rdbNao.Checked)
-                        new Task(() => { Controller.Download(unionMangas + "/manga/", mangaName, false, cap); }).Start();
-                    else if (rdbSim.Checked)
-                        new Task(() => { Controller.Download(unionMangas, mangaName, true, cap); }).Start();
+                    if (!settings.Chrome)
+                        new Task(() => { MangaDownloadController.Download(unionMangas + "/manga/", mangaName, false, settings.CapInit, settings.VolQuantity, settings.DownloadLocal); }).Start();
                     else
-                        throw new Exception("Selecione um opção");
+                        new Task(() => { MangaDownloadController.Download(unionMangas, mangaName, true, settings.CapInit, settings.VolQuantity, settings.DownloadLocal); }).Start();
 
                     new Task(WriteLog).Start();
-                    rdbNao.Enabled = false;
-                    rdbSim.Enabled = false;
-                    cbkCap.Enabled = false;
                     btnLimpar.Enabled = false;
                     btnConfirm.Enabled = false;
-                    txtCap.Enabled = false;
                     txtMangaName.Enabled = false;
+                    btnConfig.Enabled = false;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("ERROR: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    btnLimpar.Enabled = true;
                     btnConfirm.Enabled = true;
+                    txtMangaName.Enabled = true;
+                    btnConfig.Enabled = true;
                 }
             }
         }
@@ -66,7 +63,7 @@ namespace MangaForm
 
             while (true)
             {
-                var Logs = Controller.logs;
+                var Logs = MangaDownloadController.logs;
 
                 if (Logs.Count > 0)
                 {
@@ -89,7 +86,7 @@ namespace MangaForm
                 }
             }
 
-            Controller.logs.Clear();
+            MangaDownloadController.logs.Clear();
             ButtonEnable(true);
         }
 
@@ -127,17 +124,10 @@ namespace MangaForm
         private void ButtonStatus(bool en)
         {
             MessageBox.Show("Mangá baixado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            rdbNao.Enabled = en;
-            rdbSim.Enabled = en;
-            cbkCap.Enabled = en;
             btnLimpar.Enabled = en;
             btnConfirm.Enabled = en;
             txtMangaName.Enabled = en;
-
-            if (cbkCap.Checked)
-                txtCap.Enabled = true;
-            else
-                txtCap.Enabled = false;
+            btnConfig.Enabled = en;
         }
 
         private void BtnLimpar_Click(object sender, EventArgs e)
@@ -145,20 +135,11 @@ namespace MangaForm
             lsvLog.Items.Clear();
         }
 
-        private void CbkCap_CheckedChanged(object sender, EventArgs e)
+        private void BtnConfig_Click(object sender, EventArgs e)
         {
-            if (cbkCap.Checked)
-                txtCap.Enabled = true;
-            else
-                txtCap.Enabled = false;
-        }
+            MangaConfiguration config = new MangaConfiguration();
 
-        private void TxtCap_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
+            config.ShowDialog();
         }
     }
 }

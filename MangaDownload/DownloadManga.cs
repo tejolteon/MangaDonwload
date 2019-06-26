@@ -13,7 +13,7 @@ namespace MangaDownload
     {
         public static string file;
 
-        public static void ViaSelenium(string url, string nomeDoManga, int capitulo)
+        public static void ViaSelenium(string url, string nomeDoManga, int capitulo, int volume, string originalPath)
         {
             string[] opt = { "headless" };
             WebDriver driver = new WebDriver(opt);
@@ -39,15 +39,42 @@ namespace MangaDownload
 
                 foreach (var item in capitulos)
                 {
-                    capUrl.Add(item.GetAttribute("href"));
-                    capTitle.Add(item.Text);
+                    capUrl.Insert(0, item.GetAttribute("href"));
+                    capTitle.Insert(0, item.Text);
                 }
 
-                string pathLog = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga);
+                string pathLog = Path.Combine(originalPath, nomeDoManga);
 
-                for (int i = capUrl.Count - capitulo; i >= 0; i--)
+                if (volume > 0)
                 {
-                    string path = Path.Combine(Environment.CurrentDirectory, @"Data\", nomeDoManga + "\\" + capTitle[i]);
+                    int volCount = 1;
+
+                    string path = Path.Combine(originalPath, nomeDoManga + "\\" + "Volume " + volCount);
+
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    int pageNumber = 1;
+
+                    for (int i = 0; i < capUrl.Count - capitulo; i++)
+                    {
+                        pageNumber = OpenVol(driver, capUrl[i], path, pageNumber);
+
+                        if ((i + 1) % volume == 0)
+                        {
+                            volCount++;
+                            pageNumber = 1;
+                            path = Path.Combine(originalPath, nomeDoManga + "\\" + "Volume " + volCount);
+
+                            if (!Directory.Exists(path))
+                                Directory.CreateDirectory(path);
+                        }
+                    }
+                }
+
+                for (int i = 0; i <= capUrl.Count - capitulo; i++)
+                {
+                    string path = Path.Combine(originalPath, nomeDoManga + "\\" + capTitle[i]);
 
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
@@ -115,7 +142,7 @@ namespace MangaDownload
 
                 file = "Fim da Execução";
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -154,7 +181,6 @@ namespace MangaDownload
             foreach (var item in images)
             {
                 imageUrl.Add(item.GetAttribute("src"));
-
             }
 
             string newPath;
@@ -164,6 +190,30 @@ namespace MangaDownload
                 newPath = path + "\\" + (i + 1).ToString("00") + ".jpg";
                 DownloadFile(driver, imageUrl[i], newPath);
             }
+        }
+
+        private static int OpenVol(this WebDriver driver, string capUrl, string path, int pageNumber)
+        {
+            driver.Url = capUrl;
+
+            var images = driver.WaitElements(By.XPath("//*[@id=\"leitor\"]/div[4]/div[4]/img"));
+            List<string> imageUrl = new List<string>();
+
+            foreach (var item in images)
+            {
+                imageUrl.Add(item.GetAttribute("src"));
+            }
+
+            string newPath;
+
+            for (int i = 0; i < imageUrl.Count; i++)
+            {
+                newPath = path + "\\" + pageNumber.ToString("000") + ".jpg";
+                DownloadFile(driver, imageUrl[i], newPath);
+                pageNumber++;
+            }
+
+            return pageNumber;
         }
 
         public static void OpenCap(string capUrl, string path)
