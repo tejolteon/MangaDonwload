@@ -11,6 +11,7 @@ namespace MangaForm.Operations
             Settings.Default.CapInit = settings.CapInit;
             Settings.Default.VolQuantity = settings.VolQuantity;
             Settings.Default.DownloadLocal = settings.DownloadLocal;
+            Settings.Default.VolNumber = settings.VolNumber;
             Settings.Default.Save();
         }
 
@@ -21,7 +22,8 @@ namespace MangaForm.Operations
                 Chrome = Settings.Default.Chrome,
                 CapInit = Settings.Default.CapInit,
                 VolQuantity = Settings.Default.VolQuantity,
-                DownloadLocal = Settings.Default.DownloadLocal
+                DownloadLocal = Settings.Default.DownloadLocal,
+                VolNumber = Settings.Default.VolNumber
             };
 
             return settings;

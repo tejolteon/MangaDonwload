@@ -13,7 +13,7 @@ namespace MangaDownload
     {
         public static string file;
 
-        public static void ViaSelenium(string url, string nomeDoManga, int capitulo, int volume, string originalPath)
+        public static void ViaSelenium(string url, string nomeDoManga, int capitulo, int volume, string originalPath, int volNumber)
         {
             string[] opt = { "headless" };
             WebDriver driver = new WebDriver(opt);
@@ -47,7 +47,7 @@ namespace MangaDownload
 
                 if (volume > 0)
                 {
-                    int volCount = 1;
+                    int volCount = volNumber;
 
                     string path = Path.Combine(originalPath, nomeDoManga + "\\" + "Volume " + volCount);
 

@@ -30,10 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MangaConfiguration));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pcbVol = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtNumeroVol = new System.Windows.Forms.TextBox();
             this.btnSearchFolder = new System.Windows.Forms.Button();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pcbLocal = new System.Windows.Forms.PictureBox();
+            this.pcbChrome = new System.Windows.Forms.PictureBox();
+            this.pcbCap = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnVoltar = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
@@ -45,21 +50,25 @@
             this.cbkChrome = new System.Windows.Forms.CheckBox();
             this.cbkCap = new System.Windows.Forms.CheckBox();
             this.cbkVol = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.fbdPath = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbVol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbLocal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbChrome)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCap)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pcbVol);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.txtNumeroVol);
             this.panel1.Controls.Add(this.btnSearchFolder);
-            this.panel1.Controls.Add(this.pictureBox4);
-            this.panel1.Controls.Add(this.pictureBox3);
-            this.panel1.Controls.Add(this.pictureBox2);
+            this.panel1.Controls.Add(this.pcbLocal);
+            this.panel1.Controls.Add(this.pcbChrome);
+            this.panel1.Controls.Add(this.pcbCap);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnVoltar);
             this.panel1.Controls.Add(this.btnReset);
@@ -71,13 +80,63 @@
             this.panel1.Controls.Add(this.cbkChrome);
             this.panel1.Controls.Add(this.cbkCap);
             this.panel1.Controls.Add(this.cbkVol);
-            this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(488, 369);
             this.panel1.TabIndex = 0;
+            // 
+            // pcbVol
+            // 
+            this.pcbVol.Cursor = System.Windows.Forms.Cursors.Help;
+            this.pcbVol.Image = global::MangaForm.Properties.Resources.round_help_button;
+            this.pcbVol.Location = new System.Drawing.Point(178, 162);
+            this.pcbVol.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.pcbVol.Name = "pcbVol";
+            this.pcbVol.Size = new System.Drawing.Size(12, 12);
+            this.pcbVol.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbVol.TabIndex = 22;
+            this.pcbVol.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Comic Sans MS", 10F);
+            this.label4.Location = new System.Drawing.Point(39, 190);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 19);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Qdt";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Comic Sans MS", 10F);
+            this.label3.Location = new System.Drawing.Point(230, 190);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(27, 19);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Nº";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 10F);
+            this.label2.Location = new System.Drawing.Point(39, 130);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 19);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Nº";
+            // 
+            // txtNumeroVol
+            // 
+            this.txtNumeroVol.Enabled = false;
+            this.txtNumeroVol.Font = new System.Drawing.Font("Comic Sans MS", 10F);
+            this.txtNumeroVol.Location = new System.Drawing.Point(263, 187);
+            this.txtNumeroVol.Name = "txtNumeroVol";
+            this.txtNumeroVol.Size = new System.Drawing.Size(100, 26);
+            this.txtNumeroVol.TabIndex = 18;
             // 
             // btnSearchFolder
             // 
@@ -91,41 +150,41 @@
             this.btnSearchFolder.UseVisualStyleBackColor = true;
             this.btnSearchFolder.Click += new System.EventHandler(this.BtnSearchFolder_Click);
             // 
-            // pictureBox4
+            // pcbLocal
             // 
-            this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Help;
-            this.pictureBox4.Image = global::MangaForm.Properties.Resources.round_help_button;
-            this.pictureBox4.Location = new System.Drawing.Point(206, 225);
-            this.pictureBox4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(12, 12);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 16;
-            this.pictureBox4.TabStop = false;
+            this.pcbLocal.Cursor = System.Windows.Forms.Cursors.Help;
+            this.pcbLocal.Image = global::MangaForm.Properties.Resources.round_help_button;
+            this.pcbLocal.Location = new System.Drawing.Point(206, 225);
+            this.pcbLocal.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.pcbLocal.Name = "pcbLocal";
+            this.pcbLocal.Size = new System.Drawing.Size(12, 12);
+            this.pcbLocal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbLocal.TabIndex = 16;
+            this.pcbLocal.TabStop = false;
             // 
-            // pictureBox3
+            // pcbChrome
             // 
-            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Help;
-            this.pictureBox3.Image = global::MangaForm.Properties.Resources.round_help_button;
-            this.pictureBox3.Location = new System.Drawing.Point(126, 74);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(12, 12);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 15;
-            this.pictureBox3.TabStop = false;
+            this.pcbChrome.Cursor = System.Windows.Forms.Cursors.Help;
+            this.pcbChrome.Image = global::MangaForm.Properties.Resources.round_help_button;
+            this.pcbChrome.Location = new System.Drawing.Point(126, 74);
+            this.pcbChrome.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.pcbChrome.Name = "pcbChrome";
+            this.pcbChrome.Size = new System.Drawing.Size(12, 12);
+            this.pcbChrome.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbChrome.TabIndex = 15;
+            this.pcbChrome.TabStop = false;
             // 
-            // pictureBox2
+            // pcbCap
             // 
-            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Help;
-            this.pictureBox2.Image = global::MangaForm.Properties.Resources.round_help_button;
-            this.pictureBox2.Location = new System.Drawing.Point(234, 103);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(12, 12);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 14;
-            this.pictureBox2.TabStop = false;
+            this.pcbCap.Cursor = System.Windows.Forms.Cursors.Help;
+            this.pcbCap.Image = global::MangaForm.Properties.Resources.round_help_button;
+            this.pcbCap.Location = new System.Drawing.Point(234, 103);
+            this.pcbCap.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.pcbCap.Name = "pcbCap";
+            this.pcbCap.Size = new System.Drawing.Size(12, 12);
+            this.pcbCap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbCap.TabIndex = 14;
+            this.pcbCap.TabStop = false;
             // 
             // label1
             // 
@@ -190,7 +249,7 @@
             // 
             this.txtVol.Enabled = false;
             this.txtVol.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVol.Location = new System.Drawing.Point(18, 188);
+            this.txtVol.Location = new System.Drawing.Point(80, 187);
             this.txtVol.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtVol.Name = "txtVol";
             this.txtVol.Size = new System.Drawing.Size(137, 26);
@@ -201,7 +260,7 @@
             // 
             this.txtCap.Enabled = false;
             this.txtCap.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCap.Location = new System.Drawing.Point(18, 128);
+            this.txtCap.Location = new System.Drawing.Point(71, 127);
             this.txtCap.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtCap.Name = "txtCap";
             this.txtCap.Size = new System.Drawing.Size(137, 26);
@@ -258,18 +317,6 @@
             this.cbkVol.UseVisualStyleBackColor = true;
             this.cbkVol.CheckedChanged += new System.EventHandler(this.CbkVol_CheckedChanged);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Help;
-            this.pictureBox1.Image = global::MangaForm.Properties.Resources.round_help_button;
-            this.pictureBox1.Location = new System.Drawing.Point(184, 163);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(12, 12);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-            // 
             // MangaConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,10 +332,10 @@
             this.Text = "Settings";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbVol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbLocal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbChrome)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCap)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -296,7 +343,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox cbkChrome;
         private System.Windows.Forms.CheckBox cbkCap;
         private System.Windows.Forms.CheckBox cbkVol;
@@ -309,9 +355,14 @@
         private System.Windows.Forms.Button btnVoltar;
         private System.Windows.Forms.FolderBrowserDialog fbdPath;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pcbLocal;
+        private System.Windows.Forms.PictureBox pcbChrome;
+        private System.Windows.Forms.PictureBox pcbCap;
         private System.Windows.Forms.Button btnSearchFolder;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtNumeroVol;
+        private System.Windows.Forms.PictureBox pcbVol;
     }
 }

@@ -13,6 +13,11 @@ namespace MangaForm
         {
             InitializeComponent();
             LoadConfiguration();
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(pcbCap, "Inicia o download a partir do capítulo digitado");
+            toolTip.SetToolTip(pcbChrome, "Inicia uma sessão do chrome em segundo plano e realiza o download (Necessário chrome instalado)");
+            toolTip.SetToolTip(pcbLocal, "Local onde serão salvos os mangás baixados");
+            toolTip.SetToolTip(pcbVol, "Compila vários capítulos em uma única pasta, digite o número de capítulos que deseja por volume e o número do volume inicial");
         }
 
         private void BtnSalvar_Click(object sender, EventArgs e)
@@ -27,12 +32,16 @@ namespace MangaForm
             {
                 if (!string.IsNullOrEmpty(txtCap.Text))
                     settings.CapInit = int.Parse(txtCap.Text);
+                else
+                    MessageBox.Show("Por favor digite uma informação", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             if (cbkVol.Checked)
             {
                 if (!string.IsNullOrEmpty(txtVol.Text))
                     settings.VolQuantity = int.Parse(txtVol.Text);
+                else
+                    MessageBox.Show("Por favor digite uma informação", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             if (cbkLocal.Checked)
@@ -76,11 +85,13 @@ namespace MangaForm
             if (settings.VolQuantity > 0)
             {
                 txtVol.Text = settings.VolQuantity.ToString();
+                txtNumeroVol.Text = settings.VolNumber.ToString();
                 cbkVol.Checked = true;
             }
             else
             {
                 txtVol.Text = "";
+                txtNumeroVol.Text = "";
                 cbkVol.Checked = false;
             }
 
@@ -114,9 +125,16 @@ namespace MangaForm
         private void CbkVol_CheckedChanged(object sender, EventArgs e)
         {
             if (cbkVol.Checked)
+            {
                 txtVol.Enabled = true;
+                txtNumeroVol.Enabled = true;
+            }
             else
+            {
                 txtVol.Enabled = false;
+                txtNumeroVol.Enabled = false;
+                txtNumeroVol.Text = "1";
+            }
         }
 
         private void CbkLocal_CheckedChanged(object sender, EventArgs e)

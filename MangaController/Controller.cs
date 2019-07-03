@@ -30,12 +30,12 @@ namespace MangaController
             Manga.file = string.Empty;
         }
 
-        public static void Download(string url, string manga, bool navegador, int capitulo, int volume, string path)
+        public static void Download(string url, string manga, bool navegador, int capitulo, int volume, string path, int volNumber)
         {
             try
             {
                 if (navegador)
-                    new Task(() => { Manga.ViaSelenium(url, manga, capitulo, volume, path); }).Start();
+                    new Task(() => { Manga.ViaSelenium(url, manga, capitulo, volume, path, volNumber); }).Start();
                 else
                     new Task(() => { Manga.ViaCrawler(url, manga, capitulo); }).Start();
 
