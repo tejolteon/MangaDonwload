@@ -56,9 +56,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DownloadManga.cs" />
+    <Compile Include="ViaSelenium.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Generic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViaCrawler.cs" />
     <Compile Include="Webdriver\DelaySeconds.cs" />
     <Compile Include="Webdriver\Extensions.cs" />
     <Compile Include="Webdriver\WebDriver.cs" />

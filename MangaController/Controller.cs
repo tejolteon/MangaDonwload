@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MangaController
 {
-    using Manga = MangaDownload.DownloadManga;
+    using Manga = MangaDownload.Generic;
 
     public class Controller
     {
@@ -34,11 +34,7 @@ namespace MangaController
         {
             try
             {
-                if (navegador)
-                    new Task(() => { Manga.ViaSelenium(url, manga, capitulo, volume, path, volNumber); }).Start();
-                else
-                    new Task(() => { Manga.ViaCrawler(url, manga, capitulo); }).Start();
-
+                new Task(() => { Manga.Start(url, manga, navegador, capitulo, volume, path, volNumber); }).Start();
                 new Task(GetLog).Start();
             }
             catch(Exception e)
