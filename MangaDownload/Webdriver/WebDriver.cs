@@ -9,7 +9,7 @@ using static System.Awaiter;
 
 namespace MangaDownload
 {
-    class WebDriverOptions : ChromeOptions
+    public class WebDriverOptions : ChromeOptions
     {
         public WebDriverOptions(string[] options = null)
         {
@@ -21,7 +21,7 @@ namespace MangaDownload
         }
     }
 
-    class WebDriver : ChromeDriver
+    public class WebDriver : ChromeDriver
     {
         public static Dictionary<IWebElement, WebDriver> Register { get; } = new Dictionary<IWebElement, WebDriver>();
 

@@ -20,39 +20,51 @@ namespace MangaForm
         delegate void SetTextCallback(ListViewItem item);
         delegate void SetBoolCallback(bool en);
         readonly string unionMangas = "http://unionmangas.site";
+        bool running = false;
+        CancellationTokenSource tokenSource = new CancellationTokenSource();
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtMangaName.Text))
-                MessageBox.Show("Por favor, digite o nome do Mangá desejado");
+            if (!running)
+            {
+                if (string.IsNullOrEmpty(txtMangaName.Text))
+                    MessageBox.Show("Por favor, digite o nome do Mangá desejado");
+                else
+                {
+                    SettingsController settingsController = new SettingsController();
+
+                    SettingsEntity settings = settingsController.Get();
+                    string mangaName = txtMangaName.Text;
+
+                    try
+                    {
+                        var token = tokenSource.Token;
+
+                        if (!settings.Chrome)
+                            new Task(() => { MangaDownloadController.Download(unionMangas + "/manga/", mangaName, false, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }, token).Start();
+                        else
+                            new Task(() => { MangaDownloadController.Download(unionMangas, mangaName, true, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }, token).Start();
+
+                        new Task(WriteLog).Start();
+                        btnLimpar.Enabled = false;
+                        btnConfirm.Enabled = false;
+                        txtMangaName.Enabled = false;
+                        btnConfig.Enabled = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("ERROR: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        btnLimpar.Enabled = true;
+                        btnConfirm.Enabled = true;
+                        txtMangaName.Enabled = true;
+                        btnConfig.Enabled = true;
+                    }
+                }
+            }
             else
             {
-                SettingsController settingsController = new SettingsController();
-
-                SettingsEntity settings = settingsController.Get();
-                string mangaName = txtMangaName.Text;
-
-                try
-                {
-                    if (!settings.Chrome)
-                        new Task(() => { MangaDownloadController.Download(unionMangas + "/manga/", mangaName, false, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
-                    else
-                        new Task(() => { MangaDownloadController.Download(unionMangas, mangaName, true, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
-
-                    new Task(WriteLog).Start();
-                    btnLimpar.Enabled = false;
-                    btnConfirm.Enabled = false;
-                    txtMangaName.Enabled = false;
-                    btnConfig.Enabled = false;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("ERROR: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    btnLimpar.Enabled = true;
-                    btnConfirm.Enabled = true;
-                    txtMangaName.Enabled = true;
-                    btnConfig.Enabled = true;
-                }
+                tokenSource.Cancel();
+                running = false;
             }
         }
 
