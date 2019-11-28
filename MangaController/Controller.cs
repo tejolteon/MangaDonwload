@@ -42,5 +42,18 @@ namespace MangaController
                 throw e;
             }
         }
+
+        public static void DownloadH(string url, string manga, bool navegador, int capitulo, int volume, string path, int volNumber)
+        {
+            try
+            {
+                new Task(() => { Manga.Start(url, manga, navegador, capitulo, volume, path, volNumber); }).Start();
+                new Task(GetLog).Start();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

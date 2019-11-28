@@ -90,5 +90,10 @@ namespace MangaDownload
                 driver.Dispose();
             }
         }
+
+        public static void StartProcessH(string url, string nomeDoManga, int capitulo, int volume, string originalPath, int volNumber)
+        {
+            
+        }
     }
 }

@@ -20,13 +20,11 @@ namespace MangaForm
         delegate void SetTextCallback(ListViewItem item);
         delegate void SetBoolCallback(bool en);
         readonly string unionMangas = "http://unionmangas.site";
-        bool running = false;
-        CancellationTokenSource tokenSource = new CancellationTokenSource();
+        private Keys[] sequence = new Keys[] { Keys.Up, Keys.Up, Keys.Down, Keys.Down, Keys.Left, Keys.Right, Keys.Left, Keys.Right, Keys.B, Keys.A };
+        private int sequenceIndex;
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (!running)
-            {
                 if (string.IsNullOrEmpty(txtMangaName.Text))
                     MessageBox.Show("Por favor, digite o nome do Mangá desejado");
                 else
@@ -38,12 +36,10 @@ namespace MangaForm
 
                     try
                     {
-                        var token = tokenSource.Token;
-
                         if (!settings.Chrome)
-                            new Task(() => { MangaDownloadController.Download(unionMangas + "/manga/", mangaName, false, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }, token).Start();
+                            new Task(() => { MangaDownloadController.Download(unionMangas + "/manga/", mangaName, false, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
                         else
-                            new Task(() => { MangaDownloadController.Download(unionMangas, mangaName, true, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }, token).Start();
+                            new Task(() => { MangaDownloadController.Download(unionMangas, mangaName, true, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
 
                         new Task(WriteLog).Start();
                         btnLimpar.Enabled = false;
@@ -60,12 +56,6 @@ namespace MangaForm
                         btnConfig.Enabled = true;
                     }
                 }
-            }
-            else
-            {
-                tokenSource.Cancel();
-                running = false;
-            }
         }
 
         void WriteLog()
@@ -152,6 +142,24 @@ namespace MangaForm
             MangaConfiguration config = new MangaConfiguration();
 
             config.ShowDialog();
+        }
+
+        private void DownloadMangaForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == sequence[sequenceIndex])
+            {
+                if(++sequenceIndex == sequence.Length)
+                {
+                    sequenceIndex = 0;
+                    // restricted mode
+                    MessageBox.Show("Hehe boi");
+                    DownloadHForm h = new DownloadHForm();
+
+                    h.Show();
+                }
+            }
+            else
+                sequenceIndex = 0;
         }
     }
 }

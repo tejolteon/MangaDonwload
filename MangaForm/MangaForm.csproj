@@ -66,6 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DownloadHForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownloadHForm.Designer.cs">
+      <DependentUpon>DownloadHForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DownloadMangaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +89,9 @@
     <Compile Include="SettingsController.cs" />
     <Compile Include="SettingsEntity.cs" />
     <Compile Include="SettingsOperations.cs" />
+    <EmbeddedResource Include="DownloadHForm.resx">
+      <DependentUpon>DownloadHForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DownloadMangaForm.resx">
       <DependentUpon>DownloadMangaForm.cs</DependentUpon>
     </EmbeddedResource>

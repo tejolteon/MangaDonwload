@@ -87,6 +87,7 @@
             this.log,
             this.hora});
             this.lsvLog.Font = new System.Drawing.Font("Comic Sans MS", 10F);
+            this.lsvLog.HideSelection = false;
             this.lsvLog.Location = new System.Drawing.Point(16, 132);
             this.lsvLog.Name = "lsvLog";
             this.lsvLog.Size = new System.Drawing.Size(450, 147);
@@ -143,8 +144,10 @@
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.txtMangaName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "DownloadMangaForm";
             this.Text = "Baixar Mangá";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DownloadMangaForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
