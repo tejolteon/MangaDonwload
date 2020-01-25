@@ -47,6 +47,9 @@ namespace MangaForm
             if (cbkLocal.Checked)
                 settings.DownloadLocal = txtPath.Text;
 
+            settings.MangaSite = "http://unionmangas.site";
+            settings.HentaiSite = "https://nhentai.net/g/";
+
             controller.Save(settings);
 
             MessageBox.Show("Configuração salva com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);

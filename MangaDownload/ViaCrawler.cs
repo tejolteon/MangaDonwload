@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 
 namespace MangaDownload
 {
@@ -81,9 +80,56 @@ namespace MangaDownload
             }
         }
 
-        public static void StartProcessH(string url, string nomeDoManga, int capitulo, int volume, string originalPath, int volNumber)
+        public static void StartProcessH(string url, string cod, string originalPath)
         {
-            
+            try
+            {
+                HtmlWeb get = new HtmlWeb();
+                HtmlDocument page = get.Load(url + cod);
+
+                string nome = page.DocumentNode.SelectSingleNode("//*[@id='info']/h1").InnerText;
+
+                nome = nome.NormalizeText();
+
+                //url = page.DocumentNode.SelectSingleNode("//*[@id='cover']/a").Attributes["src"].Value;
+
+                string pathLog = Path.Combine(originalPath, nome);
+                string path = Path.Combine(originalPath, nome);
+
+                Generic.CreateDirectory(path);
+
+                int contador = 1;
+                Generic.file = "Iniciando Download";
+
+                while (true)
+                {
+                    page = get.Load(url + cod + "/" + contador);
+                    string nUrl = string.Empty;
+
+                    try
+                    {
+                        nUrl = page.DocumentNode.SelectSingleNode("//*[@id='image-container']/a/img").Attributes["src"].Value;
+                    }
+                    catch
+                    {
+                        break;
+                    }
+
+                    string newPath = path + "\\" + contador.ToString("00") + ".jpg";
+
+                    Generic.DownloadFile(nUrl, newPath);
+
+                    Generic.file = "Página " + contador.ToString("00") + " baixada";
+
+                    contador++;
+                }
+                Generic.file = "Download Concluído";
+                Generic.file = "Fim da Execução";
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

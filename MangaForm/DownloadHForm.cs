@@ -19,7 +19,6 @@ namespace MangaForm
 
         delegate void SetTextCallback(ListViewItem item);
         delegate void SetBoolCallback(bool en);
-        readonly string nH = "https://nhentai.net/g/";
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
@@ -34,10 +33,11 @@ namespace MangaForm
 
                     try
                     {
+                    settings.Chrome = false;
                         if (!settings.Chrome)
-                            new Task(() => { MangaDownloadController.DownloadH(nH, HName, false, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
+                            new Task(() => { MangaDownloadController.DownloadH(settings.HentaiSite, HName, false, settings.DownloadLocal); }).Start();
                         else
-                            new Task(() => { MangaDownloadController.DownloadH(nH, HName, true, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
+                            new Task(() => { MangaDownloadController.DownloadH(settings.HentaiSite, HName, true, settings.DownloadLocal); }).Start();
 
                         new Task(WriteLog).Start();
                         btnLimpar.Enabled = false;
@@ -61,7 +61,7 @@ namespace MangaForm
 
             while (true)
             {
-                var Logs = MangaDownloadController.logs;
+                var Logs = new List<string>(MangaDownloadController.logs);
 
                 if (Logs.Count > 0)
                 {

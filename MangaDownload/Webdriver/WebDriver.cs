@@ -52,7 +52,7 @@ namespace MangaDownload
                 Console.WriteLine("Verificando se o elemento {0} está visível", by);
                 webElement = WaitElement(by, seconds);
 
-                if (webElement is null)
+                if (!webElement.Displayed)
                     return false;
                 else
                     return true;

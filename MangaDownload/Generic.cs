@@ -19,12 +19,12 @@ namespace MangaDownload
                 ViaCrawler.StartProcess(url, manga, capitulo, volume, path, volNumber);
         }
 
-        public static void StartH(string url, string manga, bool navegador, int capitulo, int volume, string path, int volNumber)
+        public static void StartH(string url, string manga, bool navegador, string path)
         {
             if (navegador)
-                ViaSelenium.StartProcessH(url, manga, capitulo, volume, path, volNumber);
+                ViaSelenium.StartProcessH(url, manga, path);
             else
-                ViaCrawler.StartProcessH(url, manga, capitulo, volume, path, volNumber);
+                ViaCrawler.StartProcessH(url, manga, path);
         }
 
         public static void CreateDirectory(string path)

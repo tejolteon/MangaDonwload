@@ -17,5 +17,11 @@
     <Setting Name="VolNumber" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="MangaSite" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://unionmangas.site</Value>
+    </Setting>
+    <Setting Name="HentaiSite" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://nhentai.net/g/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

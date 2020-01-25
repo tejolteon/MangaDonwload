@@ -19,8 +19,7 @@ namespace MangaForm
 
         delegate void SetTextCallback(ListViewItem item);
         delegate void SetBoolCallback(bool en);
-        readonly string unionMangas = "http://unionmangas.site";
-        private Keys[] sequence = new Keys[] { Keys.Up, Keys.Up, Keys.Down, Keys.Down, Keys.Left, Keys.Right, Keys.Left, Keys.Right, Keys.B, Keys.A };
+        private readonly Keys[] sequence = new Keys[] { Keys.Up, Keys.Up, Keys.Down, Keys.Down, Keys.Left, Keys.Right, Keys.Left, Keys.Right, Keys.B, Keys.A };
         private int sequenceIndex;
 
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -37,9 +36,9 @@ namespace MangaForm
                     try
                     {
                         if (!settings.Chrome)
-                            new Task(() => { MangaDownloadController.Download(unionMangas + "/manga/", mangaName, false, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
+                            new Task(() => { MangaDownloadController.Download(settings.MangaSite + "/manga/", mangaName, false, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
                         else
-                            new Task(() => { MangaDownloadController.Download(unionMangas, mangaName, true, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
+                            new Task(() => { MangaDownloadController.Download(settings.MangaSite, mangaName, true, settings.CapInit, settings.VolQuantity, settings.DownloadLocal, settings.VolNumber); }).Start();
 
                         new Task(WriteLog).Start();
                         btnLimpar.Enabled = false;
@@ -65,7 +64,8 @@ namespace MangaForm
 
             while (true)
             {
-                var Logs = MangaDownloadController.logs;
+                var Logs = new List<string>(MangaDownloadController.logs);
+
 
                 if (Logs.Count > 0)
                 {
@@ -154,8 +154,10 @@ namespace MangaForm
                     // restricted mode
                     MessageBox.Show("Hehe boi");
                     DownloadHForm h = new DownloadHForm();
-
-                    h.Show();
+                    Hide();
+                    h.ShowDialog();
+                    Show();
+                    txtMangaName.Clear();
                 }
             }
             else

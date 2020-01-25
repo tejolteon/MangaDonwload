@@ -12,6 +12,8 @@ namespace MangaForm.Operations
             Settings.Default.VolQuantity = settings.VolQuantity;
             Settings.Default.DownloadLocal = settings.DownloadLocal;
             Settings.Default.VolNumber = settings.VolNumber;
+            Settings.Default.MangaSite = settings.MangaSite;
+            Settings.Default.HentaiSite = settings.HentaiSite;
             Settings.Default.Save();
         }
 
@@ -23,7 +25,9 @@ namespace MangaForm.Operations
                 CapInit = Settings.Default.CapInit,
                 VolQuantity = Settings.Default.VolQuantity,
                 DownloadLocal = Settings.Default.DownloadLocal,
-                VolNumber = Settings.Default.VolNumber
+                VolNumber = Settings.Default.VolNumber,
+                MangaSite = Settings.Default.MangaSite,
+                HentaiSite = Settings.Default.HentaiSite
             };
 
             return settings;

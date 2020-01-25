@@ -7,5 +7,7 @@
         public int CapInit { get; set; }
         public int VolQuantity { get; set; }
         public int VolNumber { get; set; }
+        public string MangaSite { get; set; }
+        public string HentaiSite { get; set; }
     }
 }

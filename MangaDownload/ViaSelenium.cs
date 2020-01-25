@@ -91,9 +91,58 @@ namespace MangaDownload
             }
         }
 
-        public static void StartProcessH(string url, string nomeDoManga, int capitulo, int volume, string originalPath, int volNumber)
+        public static void StartProcessH(string url, string cod, string originalPath)
         {
-            
+            string[] opt = { "headless" };
+            WebDriver driver = new WebDriver(opt);
+
+            try
+            {
+                driver.Url = url + cod;
+
+                string nome = driver.WaitElement(By.XPath("//*[@id='info']/h1")).Text;
+
+                nome = nome.NormalizeText();
+
+                driver.WaitElement(By.XPath("//*[@id='cover']/a")).Click();
+
+                string pathLog = Path.Combine(originalPath, nome);
+                string path = Path.Combine(originalPath, nome);
+
+                Generic.CreateDirectory(path);
+
+                int contador = 1;
+                Generic.file = "Iniciando Download";
+
+                while (true)
+                {
+                    
+                    url = driver.WaitElement(By.XPath("//*[@id='image-container']/a/img")).GetAttribute("src");
+
+                    string newPath = path + "\\" + contador.ToString("00") + ".jpg";
+
+                    Generic.DownloadFile(url, newPath);
+
+                    Generic.file = "Página "+ contador.ToString("00") + " baixada";
+
+                    if (driver.ElementIsVisible(By.XPath("//*[@id='pagination-page-top']/a[3]"), out var botao))
+                        botao.Click();
+                    else
+                        break;
+
+                    contador++;
+                }
+                Generic.file = "Download Concluído";
+                Generic.file = "Fim da Execução";
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                driver.Dispose();
+            }
         }
     }
 }
