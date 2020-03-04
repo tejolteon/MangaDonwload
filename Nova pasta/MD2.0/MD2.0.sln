@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MD2.0", "MD2.0\MD2.0.csproj", "{08E97586-9318-48E5-BA2F-FCF2F6060F68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDR", "MDL\MDR.csproj", "{ED9870BF-096F-438E-A677-B744B39E2A3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08E97586-9318-48E5-BA2F-FCF2F6060F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08E97586-9318-48E5-BA2F-FCF2F6060F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08E97586-9318-48E5-BA2F-FCF2F6060F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08E97586-9318-48E5-BA2F-FCF2F6060F68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED9870BF-096F-438E-A677-B744B39E2A3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED9870BF-096F-438E-A677-B744B39E2A3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED9870BF-096F-438E-A677-B744B39E2A3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED9870BF-096F-438E-A677-B744B39E2A3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3D4FF47-FF46-4EC5-9572-FE0F6EC81CAC}
+	EndGlobalSection
+EndGlobal
