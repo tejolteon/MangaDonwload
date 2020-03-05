@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace MDR
 {
+    using Microsoft.Win32;
     using Source.Reader;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,8 +27,9 @@ namespace MDR
             InitializeComponent();
             Reader reader = new Reader();
 
-            imageLeft.Margin = new Thickness(grid.Width / 2, 0, 0, 0);
-            imageRight.Margin = new Thickness(0, 0, grid.Width / 2, 0);
+            OpenFileDialog dialog = new OpenFileDialog { Filter = "Directory|*.this.directory"};
+            dialog.ShowDialog();
+
             imageLeft.Source = reader.Loader(@"C:\Users\tiago\Pictures\chinchila-cuidar-pet.jpg");
 
             imageRight.Source = reader.Loader(@"C:\Users\tiago\Pictures\dino.png");
