@@ -6,19 +6,35 @@
         xmlns:local="clr-namespace:MDR"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" KeyDown="Win_KeyDown">
-    <Grid x:Name="gridp" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="grid" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image x:Name="imageLeft" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid VerticalAlignment="Top">
+            <Menu VerticalAlignment="Top">
+                <MenuItem Header="File">
+                    <MenuItem x:Name="mitSingle" Header="Single Page" Click="MitSingle_Click" />
+                    <MenuItem x:Name="mitDual" Header="Double Page" Click="MitDual_Click" />
+                </MenuItem>
+            </Menu>
         </Grid>
-        <Grid x:Name="grid2" HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center">
-            <Image x:Name="imageRight" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
+        <Grid x:Name="gridAllImage" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="gridImageLeft" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Image x:Name="imageLeft" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Center"/>
+
+            </Grid>
+            <Grid x:Name="gridImageRight" HorizontalAlignment="Left" Grid.Column="1" VerticalAlignment="Center">
+                <Image x:Name="imageRight" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            </Grid>
         </Grid>
+
     </Grid>
-    
-   
+
+
 </Window>

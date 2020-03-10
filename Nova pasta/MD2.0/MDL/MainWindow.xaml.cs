@@ -5,6 +5,7 @@ using Microsoft.Win32;
 namespace MDR
 {
     using Source.Reader;
+    using System.Windows.Controls;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -14,13 +15,11 @@ namespace MDR
         public MainWindow()
         {
             InitializeComponent();
-
             Init();
         }
 
-        int position = 0;
         Reader reader;
-        int total = 0;
+        bool dual = true;
 
         private void Init()
         {
@@ -31,16 +30,47 @@ namespace MDR
                 reader = new Reader();
 
                 reader.Loader(dialog.FileName);
-                total = reader.ImagesUrl.Length;
 
-                reader.NextImage(position);
+                Next();
+
+                if (dual)
+                    ConfigDualPage();
+                else
+                    ConfigSinglePage();
+            }
+        }
+
+        public void Next()
+        {
+            reader.NextImage();
+            if (!(reader.Image is null))
+                imageLeft.Source = reader.Image;
+            else
+                return;
+
+            if (dual)
+            {
+                reader.NextImage();
+                imageRight.Source = reader.Image;
+            }
+        }
+
+        public void Previous()
+        {
+            if (dual)
+            {
+                reader.PreviousImage();
+                reader.PreviousImage();
+            }
+
+            reader.PreviousImage();
+            if (!(reader.Image is null))
                 imageLeft.Source = reader.Image;
 
-                position++;
-                reader.NextImage(position);
-
-                if (position < total)
-                    imageRight.Source = reader.Image;
+            if (dual)
+            {
+                reader.NextImage();
+                imageRight.Source = reader.Image;
             }
         }
 
@@ -48,18 +78,70 @@ namespace MDR
         {
             if (e.Key == Key.Right)
             {
-                position++;
-                reader.NextImage(position);
-
-                if (position < total)
-                    imageLeft.Source = reader.Image;
-
-                position++;
-                reader.NextImage(position);
-
-                if (position < total)
-                    imageRight.Source = reader.Image;
+                Next();
             }
+            else if (e.Key == Key.Left)
+            {
+                Previous();
+            }
+        }
+
+        public void ConfigSinglePage()
+        {
+            if (dual)
+            {
+                dual = false;
+                gridAllImage.ColumnDefinitions.Clear();
+
+                gridImageLeft.HorizontalAlignment = HorizontalAlignment.Center;
+                imageLeft.HorizontalAlignment = HorizontalAlignment.Center;
+                imageRight.Source = null;
+
+                Previous();
+            }
+        }
+
+        public void ConfigDualPage()
+        {
+            if (!dual)
+            {
+                gridAllImage.ColumnDefinitions.Clear();
+
+                var col = new ColumnDefinition
+                {
+                    Width = new GridLength(1, GridUnitType.Star)
+                };
+                var col2 = new ColumnDefinition
+                {
+                    Width = new GridLength(1, GridUnitType.Star)
+                };
+
+                gridAllImage.ColumnDefinitions.Add(col);
+                gridAllImage.ColumnDefinitions.Add(col2);
+
+                gridImageLeft.HorizontalAlignment = HorizontalAlignment.Right;
+                imageLeft.HorizontalAlignment = HorizontalAlignment.Right;
+                gridImageRight.HorizontalAlignment = HorizontalAlignment.Left;
+                imageRight.HorizontalAlignment = HorizontalAlignment.Left;
+
+                //if (!(position % 2 == 0))
+                //    position -= 2;
+                //else if (position >= 0)
+                //    position -= 1;
+                Previous();
+                dual = true;
+                Next();
+            }
+        }
+
+        private void MitSingle_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigSinglePage();
+        }
+
+        private void MitDual_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigDualPage();
         }
     }
 }
