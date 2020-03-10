@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace MDR
 {
-    using Microsoft.Win32;
     using Source.Reader;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -25,14 +14,52 @@ namespace MDR
         public MainWindow()
         {
             InitializeComponent();
-            Reader reader = new Reader();
 
-            OpenFileDialog dialog = new OpenFileDialog { Filter = "Directory|*.this.directory"};
-            dialog.ShowDialog();
+            Init();
+        }
 
-            imageLeft.Source = reader.Loader(@"C:\Users\tiago\Pictures\chinchila-cuidar-pet.jpg");
+        int position = 0;
+        Reader reader;
+        int total = 0;
 
-            imageRight.Source = reader.Loader(@"C:\Users\tiago\Pictures\dino.png");
+        private void Init()
+        {
+            OpenFileDialog dialog = new OpenFileDialog { Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png" };
+
+            if (dialog.ShowDialog() == true)
+            {
+                reader = new Reader();
+
+                reader.Loader(dialog.FileName);
+                total = reader.ImagesUrl.Length;
+
+                reader.NextImage(position);
+                imageLeft.Source = reader.Image;
+
+                position++;
+                reader.NextImage(position);
+
+                if (position < total)
+                    imageRight.Source = reader.Image;
+            }
+        }
+
+        private void Win_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Right)
+            {
+                position++;
+                reader.NextImage(position);
+
+                if (position < total)
+                    imageLeft.Source = reader.Image;
+
+                position++;
+                reader.NextImage(position);
+
+                if (position < total)
+                    imageRight.Source = reader.Image;
+            }
         }
     }
 }
