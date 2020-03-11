@@ -15,11 +15,10 @@ namespace MDR
         public MainWindow()
         {
             InitializeComponent();
-            Init();
         }
 
         Reader reader;
-        bool dual = true;
+        bool dual = false;
 
         private void Init()
         {
@@ -34,9 +33,15 @@ namespace MDR
                 Next();
 
                 if (dual)
+                {
+                    dual = false;
                     ConfigDualPage();
+                }
                 else
+                {
+                    dual = true;
                     ConfigSinglePage();
+                }
             }
         }
 
@@ -71,18 +76,6 @@ namespace MDR
             {
                 reader.NextImage();
                 imageRight.Source = reader.Image;
-            }
-        }
-
-        private void Win_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Right)
-            {
-                Next();
-            }
-            else if (e.Key == Key.Left)
-            {
-                Previous();
             }
         }
 
@@ -124,15 +117,27 @@ namespace MDR
                 gridImageRight.HorizontalAlignment = HorizontalAlignment.Left;
                 imageRight.HorizontalAlignment = HorizontalAlignment.Left;
 
-                //if (!(position % 2 == 0))
-                //    position -= 2;
-                //else if (position >= 0)
-                //    position -= 1;
-                Previous();
+                if (!(reader.CurrentPage % 2 == 0))
+                    reader.SetPosition(-2);
+                else if (reader.CurrentPage >= 0)
+                    reader.SetPosition(-1);
+
                 dual = true;
                 Next();
             }
         }
+
+        private void Win_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Right)
+            {
+                Next();
+            }
+            else if (e.Key == Key.Left)
+            {
+                Previous();
+            }
+        } 
 
         private void MitSingle_Click(object sender, RoutedEventArgs e)
         {
@@ -142,6 +147,11 @@ namespace MDR
         private void MitDual_Click(object sender, RoutedEventArgs e)
         {
             ConfigDualPage();
+        }
+
+        private void MitOpenFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Init();
         }
     }
 }

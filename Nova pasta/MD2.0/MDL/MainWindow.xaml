@@ -15,8 +15,14 @@
         <Grid VerticalAlignment="Top">
             <Menu VerticalAlignment="Top">
                 <MenuItem Header="File">
+                    <MenuItem x:Name="mitOpenFolder" Header="Open Folder" Click="MitOpenFolder_Click" />
+                </MenuItem>
+                <MenuItem Header="Tools">
                     <MenuItem x:Name="mitSingle" Header="Single Page" Click="MitSingle_Click" />
                     <MenuItem x:Name="mitDual" Header="Double Page" Click="MitDual_Click" />
+                </MenuItem>
+                <MenuItem Header="Zoom">
+                    <Slider Width="120"/>
                 </MenuItem>
             </Menu>
         </Grid>

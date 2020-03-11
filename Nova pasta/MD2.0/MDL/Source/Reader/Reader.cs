@@ -10,6 +10,7 @@ namespace MDR.Source.Reader
         private string BaseDirectory;
         private string[] ImagesUrl;
         public BitmapImage Image { get; set; }
+        public int CurrentPage { get; set; }
         private int position = -1;
 
         public void Loader(string fileName)
@@ -45,8 +46,21 @@ namespace MDR.Source.Reader
             }
         }
 
-        private void GetImage(int position) =>
-            Image = new BitmapImage(new Uri(ImagesUrl[position]));
+        private void GetImage(int position)
+        {
+            CurrentPage = position;
+            Image = new BitmapImage(new Uri(ImagesUrl[CurrentPage]));
+        }
+
+        public void SetPosition(int value)
+        {
+            var temp = position + value;
+            if (temp >= -1 || temp <= ImagesUrl.Length)
+                position = temp;
+            
+
+        }
+
 
         /// <summary>
         /// Returns file names from given folder that comply to given filters
