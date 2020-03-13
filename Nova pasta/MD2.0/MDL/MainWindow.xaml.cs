@@ -4,6 +4,7 @@ using Microsoft.Win32;
 
 namespace MDR
 {
+    using MDR.Source.Utils;
     using Source.Reader;
     using System.Windows.Controls;
 
@@ -137,7 +138,16 @@ namespace MDR
             {
                 Previous();
             }
+
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+               ZoomBorder.IsCtrlPressed = true;
         } 
+
+        private void Win_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
+                ZoomBorder.IsCtrlPressed = false;
+        }
 
         private void MitSingle_Click(object sender, RoutedEventArgs e)
         {

@@ -12,7 +12,7 @@ namespace MDR.Source.Utils
         private UIElement child = null;
         private Point origin;
         private Point start;
-        private bool isCtrlPressed = false;
+        public static bool IsCtrlPressed { get; set; }
 
         private TranslateTransform GetTranslateTransform(UIElement element)
         {
@@ -54,8 +54,6 @@ namespace MDR.Source.Utils
                 MouseLeftButtonUp += Child_MouseLeftButtonUp;
                 MouseMove += Child_MouseMove;
                 PreviewMouseRightButtonDown += new MouseButtonEventHandler(Child_PreviewMouseRightButtonDown);
-                 += Child_KeyDown;
-                KeyUp += Child_KeyUp;
             }
         }
 
@@ -77,27 +75,11 @@ namespace MDR.Source.Utils
 
         #region Child Events
 
-        private void Child_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (child != null)
-                if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
-                    isCtrlPressed = false;
-        }
-
-        private void Child_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (child != null)
-            {
-                if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
-                    isCtrlPressed = true;
-            }
-        }
-
         private void Child_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (child != null)
             {
-                if (isCtrlPressed)
+                if (IsCtrlPressed)
                 {
                     var st = GetScaleTransform(child);
                     var tt = GetTranslateTransform(child);
