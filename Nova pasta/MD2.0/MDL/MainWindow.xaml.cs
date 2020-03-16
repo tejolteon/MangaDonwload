@@ -7,6 +7,7 @@ namespace MDR
     using MDR.Source.Utils;
     using Source.Reader;
     using System.Windows.Controls;
+    using System.Windows.Media;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -50,7 +51,10 @@ namespace MDR
         {
             reader.NextImage();
             if (!(reader.Image is null))
+            {
                 imageLeft.Source = reader.Image;
+                border.Reset();
+            }
             else
                 return;
 
@@ -71,7 +75,10 @@ namespace MDR
 
             reader.PreviousImage();
             if (!(reader.Image is null))
+            {
                 imageLeft.Source = reader.Image;
+                border.Reset();
+            }
 
             if (dual)
             {
@@ -132,11 +139,13 @@ namespace MDR
         {
             if (e.Key == Key.Right)
             {
-                Next();
+                if(!(imageLeft.Source is null))
+                    Next();
             }
             else if (e.Key == Key.Left)
             {
-                Previous();
+                if(!(imageLeft.Source is null))
+                    Previous();
             }
 
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
@@ -162,6 +171,16 @@ namespace MDR
         private void MitOpenFolder_Click(object sender, RoutedEventArgs e)
         {
             Init();
+        }
+
+        private void SldZoom_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            TransformGroup transformGroup = (TransformGroup)gridAllImage.RenderTransform;
+            ScaleTransform transform = (ScaleTransform)transformGroup.Children[0];
+
+            double zoom = e.NewValue;
+            transform.ScaleX = zoom;
+            transform.ScaleY = zoom;
         }
     }
 }

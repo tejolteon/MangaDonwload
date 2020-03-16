@@ -22,7 +22,7 @@
                     <MenuItem x:Name="mitDual" Header="Double Page" Click="MitDual_Click" />
                 </MenuItem>
                 <MenuItem Header="Zoom">
-                    <Slider Width="120"/>
+                    <Slider x:Name="sldZoom" Width="120" ValueChanged="SldZoom_ValueChanged"/>
                 </MenuItem>
             </Menu>
         </Grid>

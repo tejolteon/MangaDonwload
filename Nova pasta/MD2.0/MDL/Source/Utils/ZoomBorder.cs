@@ -14,13 +14,13 @@ namespace MDR.Source.Utils
         private Point start;
         public static bool IsCtrlPressed { get; set; }
 
-        private TranslateTransform GetTranslateTransform(UIElement element)
+        private static TranslateTransform GetTranslateTransform(UIElement element)
         {
             return (TranslateTransform)((TransformGroup)element.RenderTransform)
               .Children.First(tr => tr is TranslateTransform);
         }
 
-        private ScaleTransform GetScaleTransform(UIElement element)
+        private static ScaleTransform GetScaleTransform(UIElement element)
         {
             return (ScaleTransform)((TransformGroup)element.RenderTransform)
               .Children.First(tr => tr is ScaleTransform);
