@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MDR.Source.Utils"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" KeyDown="Win_KeyDown" KeyUp="Win_KeyUp">
+        Title="MainWindow" Height="450" Width="800" KeyDown="Win_KeyDown" KeyUp="Win_KeyUp" Background="#FF383535">
 
-    <Grid>
+    <Grid x:Name="grdMain" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Grid VerticalAlignment="Top">
+        <Grid VerticalAlignment="Top" Grid.Row="0">
             <Menu VerticalAlignment="Top">
                 <MenuItem Header="File">
                     <MenuItem x:Name="mitOpenFolder" Header="Open Folder" Click="MitOpenFolder_Click" />
@@ -22,12 +22,20 @@
                     <MenuItem x:Name="mitDual" Header="Double Page" Click="MitDual_Click" />
                 </MenuItem>
                 <MenuItem Header="Zoom">
-                    <Slider x:Name="sldZoom" Width="120" ValueChanged="SldZoom_ValueChanged"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Slider x:Name="sldZoom" Width="120" ValueChanged="SldZoom_ValueChanged" Minimum="1" Maximum="5" Value="1" Grid.Column="0"/>
+                        <Button x:Name="btnReset" Content="Reset" Click="BtnReset_Click" Grid.Column="1"/>
+                    </Grid>
                 </MenuItem>
             </Menu>
         </Grid>
-        <local:ZoomBorder x:Name="border" ClipToBounds="True" Grid.Row="1">
-            <Grid x:Name="gridAllImage">
+        <!--<local:ZoomBorder x:Name="border" ClipToBounds="True" Grid.Row="1">-->
+        <Border ClipToBounds="True" Grid.Row="1">
+            <Grid x:Name="gridAllImage" MouseWheel="gridAllImage_MouseWheel" MouseLeftButtonDown="gridAllImage_MouseLeftButtonDown" MouseLeftButtonUp="gridAllImage_MouseLeftButtonUp" MouseMove="gridAllImage_MouseMove">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -40,7 +48,8 @@
                     <Image x:Name="imageRight" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Center"/>
                 </Grid>
             </Grid>
-        </local:ZoomBorder>
+        </Border>
+        <!--</local:ZoomBorder>-->
     </Grid>
 
 

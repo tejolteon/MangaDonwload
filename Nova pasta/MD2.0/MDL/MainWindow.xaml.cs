@@ -5,7 +5,9 @@ using Microsoft.Win32;
 namespace MDR
 {
     using MDR.Source.Utils;
+    using MDR.Source;
     using Source.Reader;
+    using System.Linq;
     using System.Windows.Controls;
     using System.Windows.Media;
 
@@ -21,9 +23,17 @@ namespace MDR
 
         Reader reader;
         bool dual = false;
+        bool isCtrlPressed = false;
 
         private void Init()
         {
+            TransformGroup group = new TransformGroup();
+            ScaleTransform st = new ScaleTransform();
+            group.Children.Add(st);
+            TranslateTransform tt = new TranslateTransform();
+            group.Children.Add(tt);
+            gridAllImage.RenderTransform = group;
+
             OpenFileDialog dialog = new OpenFileDialog { Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png" };
 
             if (dialog.ShowDialog() == true)
@@ -50,10 +60,11 @@ namespace MDR
         public void Next()
         {
             reader.NextImage();
+
             if (!(reader.Image is null))
             {
-                imageLeft.Source = reader.Image;
-                border.Reset();
+                imageRight.Source = reader.Image;
+                Reset();
             }
             else
                 return;
@@ -61,7 +72,7 @@ namespace MDR
             if (dual)
             {
                 reader.NextImage();
-                imageRight.Source = reader.Image;
+                imageLeft.Source = reader.Image;
             }
         }
 
@@ -76,14 +87,14 @@ namespace MDR
             reader.PreviousImage();
             if (!(reader.Image is null))
             {
-                imageLeft.Source = reader.Image;
-                border.Reset();
+                imageRight.Source = reader.Image;
+                Reset();
             }
 
             if (dual)
             {
                 reader.NextImage();
-                imageRight.Source = reader.Image;
+                imageLeft.Source = reader.Image;
             }
         }
 
@@ -94,9 +105,9 @@ namespace MDR
                 dual = false;
                 gridAllImage.ColumnDefinitions.Clear();
 
-                gridImageLeft.HorizontalAlignment = HorizontalAlignment.Center;
-                imageLeft.HorizontalAlignment = HorizontalAlignment.Center;
-                imageRight.Source = null;
+                gridImageRight.HorizontalAlignment = HorizontalAlignment.Center;
+                imageRight.HorizontalAlignment = HorizontalAlignment.Center;
+                imageLeft.Source = null;
 
                 Previous();
             }
@@ -121,9 +132,9 @@ namespace MDR
                 gridAllImage.ColumnDefinitions.Add(col2);
 
                 gridImageLeft.HorizontalAlignment = HorizontalAlignment.Right;
-                imageLeft.HorizontalAlignment = HorizontalAlignment.Right;
+                imageRight.HorizontalAlignment = HorizontalAlignment.Right;
                 gridImageRight.HorizontalAlignment = HorizontalAlignment.Left;
-                imageRight.HorizontalAlignment = HorizontalAlignment.Left;
+                imageLeft.HorizontalAlignment = HorizontalAlignment.Left;
 
                 if (!(reader.CurrentPage % 2 == 0))
                     reader.SetPosition(-2);
@@ -139,23 +150,23 @@ namespace MDR
         {
             if (e.Key == Key.Right)
             {
-                if(!(imageLeft.Source is null))
+                if (!(imageRight.Source is null))
                     Next();
             }
             else if (e.Key == Key.Left)
             {
-                if(!(imageLeft.Source is null))
+                if (!(imageRight.Source is null))
                     Previous();
             }
 
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
-               ZoomBorder.IsCtrlPressed = true;
-        } 
+                isCtrlPressed = true;
+        }
 
         private void Win_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl)
-                ZoomBorder.IsCtrlPressed = false;
+                isCtrlPressed = false;
         }
 
         private void MitSingle_Click(object sender, RoutedEventArgs e)
@@ -175,12 +186,41 @@ namespace MDR
 
         private void SldZoom_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            TransformGroup transformGroup = (TransformGroup)gridAllImage.RenderTransform;
-            ScaleTransform transform = (ScaleTransform)transformGroup.Children[0];
+            Zoom.SliderZoom(gridAllImage, e);
+        }
 
-            double zoom = e.NewValue;
-            transform.ScaleX = zoom;
-            transform.ScaleY = zoom;
+        private void gridAllImage_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (isCtrlPressed)
+                sldZoom.Value = Zoom.MouseZoom(gridAllImage, e);
+        }
+
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
+        {
+            Reset();
+        }
+
+        void Reset()
+        {
+            sldZoom.Value = 1;
+            Zoom.Reset(gridAllImage);
+        }
+
+        private void gridAllImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Zoom.ClickMoveDown(gridAllImage, e.GetPosition(grdMain));
+            gridAllImage.CaptureMouse();
+        }
+
+        private void gridAllImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            gridAllImage.ReleaseMouseCapture();
+        }
+
+        private void gridAllImage_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (gridAllImage.IsMouseCaptured)
+                Zoom.Move(gridAllImage, e.GetPosition(grdMain));
         }
     }
 }
