@@ -33,9 +33,8 @@
                 </MenuItem>
             </Menu>
         </Grid>
-        <!--<local:ZoomBorder x:Name="border" ClipToBounds="True" Grid.Row="1">-->
         <Border ClipToBounds="True" Grid.Row="1">
-            <Grid x:Name="gridAllImage" MouseWheel="gridAllImage_MouseWheel" MouseLeftButtonDown="gridAllImage_MouseLeftButtonDown" MouseLeftButtonUp="gridAllImage_MouseLeftButtonUp" MouseMove="gridAllImage_MouseMove">
+            <Grid x:Name="gridAllImage" MouseWheel="GridAllImage_MouseWheel" MouseLeftButtonDown="GridAllImage_MouseLeftButtonDown" MouseLeftButtonUp="GridAllImage_MouseLeftButtonUp" MouseMove="GridAllImage_MouseMove">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -49,7 +48,6 @@
                 </Grid>
             </Grid>
         </Border>
-        <!--</local:ZoomBorder>-->
     </Grid>
 
 

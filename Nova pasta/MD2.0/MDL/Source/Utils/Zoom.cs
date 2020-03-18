@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -9,6 +10,7 @@ namespace MDR.Source.Utils
     {
         private static Point startPosition;
         private static Point originPosition;
+        private static Vector imageSize;
 
         private static TranslateTransform GetTranslateTransform(UIElement element)
         {
@@ -103,26 +105,32 @@ namespace MDR.Source.Utils
             var newX = originPosition.X - v.X;
             var newY = originPosition.Y - v.Y;
 
-            if (newX * -1 > fe.ActualWidth / 2)
-                newX = fe.ActualWidth / 2 * -1;
-            else if (newX > fe.ActualWidth / 2)
-                newX = fe.ActualWidth / 2;
+            var imageX = Math.Round(imageSize.X, 2);
+            var imageY = Math.Round(imageSize.Y, 2);
 
-            if (newY * -1 > fe.ActualHeight / 2)
-                newY = (fe.ActualHeight / 2) * -1;
-            else if (newY > fe.ActualHeight / 2)
-                newY = fe.ActualHeight / 2;
+            //if (newX > imageSize.X * -1)
+            //    newX = imageSize.X * -1;
+            //else if (newX > imageSize.X / 2 * -1)
+            //    newX = imageSize.X / 2 * -1;
 
-            tt.X = newX;
+            if (newY > 0)
+                newY = 0;
+            else if (newY < imageY * -1)
+                newY = imageY * -1;
+
+            if (fe.ActualWidth < imageX)
+                tt.X = newX;
+
             tt.Y = newY;
 
         }
 
-        public static void ClickMoveDown(UIElement element, Point parent)
+        public static void ClickMoveDown(UIElement element, Point parent, Vector imgSize)
         {
             if (element is null)
                 return;
 
+            imageSize = imgSize;
             var tt = GetTranslateTransform(element);
             startPosition = parent;
             originPosition = new Point(tt.X, tt.Y);

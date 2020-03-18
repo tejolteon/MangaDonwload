@@ -189,7 +189,7 @@ namespace MDR
             Zoom.SliderZoom(gridAllImage, e);
         }
 
-        private void gridAllImage_MouseWheel(object sender, MouseWheelEventArgs e)
+        private void GridAllImage_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (isCtrlPressed)
                 sldZoom.Value = Zoom.MouseZoom(gridAllImage, e);
@@ -206,18 +206,42 @@ namespace MDR
             Zoom.Reset(gridAllImage);
         }
 
-        private void gridAllImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void GridAllImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Zoom.ClickMoveDown(gridAllImage, e.GetPosition(grdMain));
+            double w = 0;
+            double h = 0;
+            double ht = 0;
+
+            if (!(imageLeft is null))
+            {
+                w += imageLeft.ActualWidth * sldZoom.Value;
+                ht = imageLeft.ActualHeight * sldZoom.Value;
+
+                if (h < ht * ((sldZoom.Value - 1) / sldZoom.Value))
+                    h = ht * ((sldZoom.Value - 1) / sldZoom.Value);
+            }
+
+            if (!(imageRight is null))
+            {
+                w += imageRight.ActualWidth * sldZoom.Value;
+                ht = imageRight.ActualHeight * sldZoom.Value;
+
+                if (h < ht * ((sldZoom.Value - 1) / sldZoom.Value))
+                    h = ht * ((sldZoom.Value - 1) / sldZoom.Value);
+            }
+
+            var imgp = new Vector(w, h);
+
+            Zoom.ClickMoveDown(gridAllImage, e.GetPosition(grdMain), imgp);
             gridAllImage.CaptureMouse();
         }
 
-        private void gridAllImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void GridAllImage_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             gridAllImage.ReleaseMouseCapture();
         }
 
-        private void gridAllImage_MouseMove(object sender, MouseEventArgs e)
+        private void GridAllImage_MouseMove(object sender, MouseEventArgs e)
         {
             if (gridAllImage.IsMouseCaptured)
                 Zoom.Move(gridAllImage, e.GetPosition(grdMain));
