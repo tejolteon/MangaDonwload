@@ -125,7 +125,7 @@ namespace MangaDownload
 
                     Generic.file = "Página "+ contador.ToString("00") + " baixada";
 
-                    if (driver.ElementIsVisible(By.XPath("//*[@id='pagination-page-top']/a[3]"), out var botao))
+                    if (driver.ElementIsVisible(By.XPath("//*[@class='reader-pagination']/*[@class='next']"), out var botao))
                         botao.Click();
                     else
                         break;

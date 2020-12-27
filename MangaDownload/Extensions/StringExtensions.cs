@@ -29,5 +29,11 @@ namespace System
             string restOfArray = string.Join(" ", text.Skip(1));
             return firstElem + restOfArray;
         }
+
+        public static string ReplaceChar(this string source)
+        {
+            string text = source.Replace("&#x27;", "'");
+            return text;
+        }
     }
 }

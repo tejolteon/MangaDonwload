@@ -12,6 +12,11 @@ namespace MangaForm.Operations
             Settings.Default.VolQuantity = settings.VolQuantity;
             Settings.Default.DownloadLocal = settings.DownloadLocal;
             Settings.Default.VolNumber = settings.VolNumber;
+            Settings.Default.Save();
+        }
+
+        public void ChangeURL(SettingsEntity settings)
+        {
             Settings.Default.MangaSite = settings.MangaSite;
             Settings.Default.HentaiSite = settings.HentaiSite;
             Settings.Default.Save();

@@ -22,36 +22,35 @@ namespace MangaForm
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-                if (string.IsNullOrEmpty(txtHName.Text))
-                    MessageBox.Show("Por favor, digite o nome do Mangá desejado");
-                else
+            if (string.IsNullOrEmpty(txtHName.Text))
+                MessageBox.Show("Por favor, digite o nome do Mangá desejado");
+            else
+            {
+                SettingsController settingsController = new SettingsController();
+
+                SettingsEntity settings = settingsController.Get();
+                string cod = txtHName.Text;
+
+                try
                 {
-                    SettingsController settingsController = new SettingsController();
+                    if (!settings.Chrome)
+                        new Task(() => { MangaDownloadController.DownloadH(settings.HentaiSite, cod, false, settings.DownloadLocal); }).Start();
+                    else
+                        new Task(() => { MangaDownloadController.DownloadH(settings.HentaiSite, cod, true, settings.DownloadLocal); }).Start();
 
-                    SettingsEntity settings = settingsController.Get();
-                    string HName = txtHName.Text;
-
-                    try
-                    {
-                    settings.Chrome = false;
-                        if (!settings.Chrome)
-                            new Task(() => { MangaDownloadController.DownloadH(settings.HentaiSite, HName, false, settings.DownloadLocal); }).Start();
-                        else
-                            new Task(() => { MangaDownloadController.DownloadH(settings.HentaiSite, HName, true, settings.DownloadLocal); }).Start();
-
-                        new Task(WriteLog).Start();
-                        btnLimpar.Enabled = false;
-                        btnConfirm.Enabled = false;
-                        txtHName.Enabled = false;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("ERROR: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        btnLimpar.Enabled = true;
-                        btnConfirm.Enabled = true;
-                        txtHName.Enabled = true;
-                    }
+                    new Task(WriteLog).Start();
+                    btnLimpar.Enabled = false;
+                    btnConfirm.Enabled = false;
+                    txtHName.Enabled = false;
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ERROR: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    btnLimpar.Enabled = true;
+                    btnConfirm.Enabled = true;
+                    txtHName.Enabled = true;
+                }
+            }
         }
 
         void WriteLog()

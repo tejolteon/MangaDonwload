@@ -18,7 +18,7 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="MangaSite" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://unionmangas.site</Value>
+      <Value Profile="(Default)">https://unionmangas.top</Value>
     </Setting>
     <Setting Name="HentaiSite" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://nhentai.net/g/</Value>

@@ -90,8 +90,7 @@ namespace MangaDownload
                 string nome = page.DocumentNode.SelectSingleNode("//*[@id='info']/h1").InnerText;
 
                 nome = nome.NormalizeText();
-
-                //url = page.DocumentNode.SelectSingleNode("//*[@id='cover']/a").Attributes["src"].Value;
+                nome = nome.ReplaceChar();
 
                 string pathLog = Path.Combine(originalPath, nome);
                 string path = Path.Combine(originalPath, nome);

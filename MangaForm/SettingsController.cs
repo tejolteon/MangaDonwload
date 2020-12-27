@@ -27,6 +27,12 @@ namespace MangaForm.Controller
             return settings;
         }
 
+        public void ChangeURL(SettingsEntity settings)
+        {
+            operations = new SettingsOperations();
+            operations.ChangeURL(settings);
+        }
+
         void ValidateSettings(SettingsEntity settings)
         {
             if (string.IsNullOrEmpty(settings.DownloadLocal))
