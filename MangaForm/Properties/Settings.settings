@@ -8,9 +8,6 @@
     <Setting Name="Chrome" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CapInit" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
     <Setting Name="VolQuantity" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
@@ -22,6 +19,9 @@
     </Setting>
     <Setting Name="HentaiSite" Type="System.String" Scope="User">
       <Value Profile="(Default)">https://nhentai.net/g/</Value>
+    </Setting>
+    <Setting Name="CapInit" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -27,6 +27,12 @@ namespace MangaForm.Controller
             return settings;
         }
 
+        public void Reset()
+        {
+            operations = new SettingsOperations();
+            operations.Reset();
+        }
+
         public void ChangeURL(SettingsEntity settings)
         {
             operations = new SettingsOperations();

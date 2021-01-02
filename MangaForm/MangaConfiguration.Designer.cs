@@ -137,6 +137,7 @@
             this.txtNumeroVol.Name = "txtNumeroVol";
             this.txtNumeroVol.Size = new System.Drawing.Size(100, 26);
             this.txtNumeroVol.TabIndex = 18;
+            this.txtNumeroVol.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtNumeroVol_KeyPress);
             // 
             // btnSearchFolder
             // 

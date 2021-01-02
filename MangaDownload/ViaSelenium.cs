@@ -50,7 +50,7 @@ namespace MangaDownload
 
                     int pageNumber = 1;
 
-                    for (int i = 0; i < capUrl.Count - capitulo; i++)
+                    for (int i = capitulo - 1; i < capUrl.Count; i++)
                     {
                         pageNumber = Generic.OpenVol(driver, capUrl[i], path, pageNumber);
 
@@ -60,23 +60,26 @@ namespace MangaDownload
                             pageNumber = 1;
                             path = Path.Combine(originalPath, nomeDoManga + "\\" + "Volume " + volCount);
 
-                            Generic.CreateDirectory(path);
+                            if (i + 1 < capUrl.Count)
+                                Generic.CreateDirectory(path);
                         }
                     }
                 }
-
-                for (int i = 0; i <= capUrl.Count - capitulo; i++)
+                else
                 {
-                    string path = Path.Combine(originalPath, nomeDoManga + "\\" + capTitle[i]);
+                    for (int i = capitulo - 1; i < capUrl.Count; i++)
+                    {
+                        string path = Path.Combine(originalPath, nomeDoManga + "\\" + capTitle[i]);
 
-                    Generic.CreateDirectory(path);
+                        Generic.CreateDirectory(path);
 
-                    Generic.file = capTitle[i] + " - Iniciando Download";
+                        Generic.file = capTitle[i] + " - Iniciando Download";
 
-                    Generic.OpenCap(driver, capUrl[i], path);
+                        Generic.OpenCap(driver, capUrl[i], path);
 
-                    File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
-                    Generic.file = capTitle[i] + " - Download Terminado";
+                        File.AppendAllText(pathLog + "\\log.txt", capTitle[i] + " Baixado \r\n");
+                        Generic.file = capTitle[i] + " - Download Terminado";
+                    }
                 }
 
                 Generic.file = "Fim da Execução";

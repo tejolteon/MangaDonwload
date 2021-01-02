@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,18 +14,33 @@ namespace MangaDownload
 
         public static void Start(string url, string manga, bool navegador, int capitulo, int volume, string path, int volNumber)
         {
-            if (navegador)
-                ViaSelenium.StartProcess(url, manga, capitulo, volume, path, volNumber);
-            else
-                ViaCrawler.StartProcess(url, manga, capitulo, volume, path, volNumber);
+            try
+            {
+                if (navegador)
+                    ViaSelenium.StartProcess(url, manga, capitulo, volume, path, volNumber);
+                else
+                    ViaCrawler.StartProcess(url, manga, capitulo, volume, path, volNumber);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public static void StartH(string url, string manga, bool navegador, string path)
         {
-            if (navegador)
-                ViaSelenium.StartProcessH(url, manga, path);
-            else
-                ViaCrawler.StartProcessH(url, manga, path);
+            try
+            {
+                if (navegador)
+                    ViaSelenium.StartProcessH(url, manga, path);
+                else
+                    ViaCrawler.StartProcessH(url, manga, path);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
         }
 
         public static void CreateDirectory(string path)
@@ -146,7 +162,7 @@ namespace MangaDownload
 
             for (int i = 0; i < imageUrl.Count; i++)
             {
-                newPath = path + "\\" + (i + 1).ToString("000") + ".jpg";
+                newPath = path + "\\" + pageNumber.ToString("000") + ".jpg";
                 DownloadFile(imageUrl[i], newPath);
                 pageNumber++;
             }

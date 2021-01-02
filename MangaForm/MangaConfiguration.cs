@@ -35,13 +35,23 @@ namespace MangaForm
                 else
                     MessageBox.Show("Por favor digite uma informação", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            else
+                settings.CapInit = 1;
 
             if (cbkVol.Checked)
             {
-                if (!string.IsNullOrEmpty(txtVol.Text))
+                if (!string.IsNullOrEmpty(txtVol.Text) && !string.IsNullOrEmpty(txtNumeroVol.Text))
+                {
                     settings.VolQuantity = int.Parse(txtVol.Text);
+                    settings.VolNumber = int.Parse(txtNumeroVol.Text);
+                }
                 else
                     MessageBox.Show("Por favor digite uma informação", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                settings.VolQuantity = 0;
+                settings.VolNumber = 1;
             }
 
             if (cbkLocal.Checked)
@@ -71,7 +81,7 @@ namespace MangaForm
                 cbkLocal.Checked = false;
             }
 
-            if (settings.CapInit > 0)
+            if (settings.CapInit > 1)
             {
                 txtCap.Text = settings.CapInit.ToString();
                 cbkCap.Checked = true;
@@ -104,7 +114,7 @@ namespace MangaForm
             {
                 SettingsController controller = new SettingsController();
 
-                controller.Save(new SettingsEntity());
+                controller.Reset();
                 LoadConfiguration();
             }
         }
@@ -119,7 +129,10 @@ namespace MangaForm
             if (cbkCap.Checked)
                 txtCap.Enabled = true;
             else
+            {
                 txtCap.Enabled = false;
+                txtCap.Clear();
+            }
         }
 
         private void CbkVol_CheckedChanged(object sender, EventArgs e)
@@ -133,7 +146,8 @@ namespace MangaForm
             {
                 txtVol.Enabled = false;
                 txtNumeroVol.Enabled = false;
-                txtNumeroVol.Text = "1";
+                txtVol.Clear();
+                txtNumeroVol.Clear();
             }
         }
 
@@ -156,11 +170,19 @@ namespace MangaForm
             {
                 e.Handled = true;
             }
+            else if (e.KeyChar.Equals('0') && txtCap.TextLength == 0)
+            {
+                e.Handled = true;
+            }
         }
 
         private void TxtVol_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            else if (e.KeyChar.Equals('0') && txtVol.TextLength == 0)
             {
                 e.Handled = true;
             }
@@ -171,6 +193,18 @@ namespace MangaForm
             if (fbdPath.ShowDialog() == DialogResult.OK)
             {
                 txtPath.Text = fbdPath.SelectedPath;
+            }
+        }
+
+        private void TxtNumeroVol_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            else if (e.KeyChar.Equals('0') && txtNumeroVol.TextLength == 0)
+            {
+                e.Handled = true;
             }
         }
     }

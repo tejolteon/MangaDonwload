@@ -37,5 +37,10 @@ namespace MangaForm.Operations
 
             return settings;
         }
+
+        public void Reset()
+        {
+            Settings.Default.Reset();
+        }
     }
 }
